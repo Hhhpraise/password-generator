@@ -24,7 +24,12 @@
     <meta name="twitter:title" content="SecurePass by hhhpraise">
     <meta name="twitter:description" content="Free password generator tool with advanced security features">
 
-    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw=">
+    <!-- Enhanced iOS Integration -->
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC=">
+
+    <!-- iOS Shortcuts Support -->
+    <meta name="apple-itunes-app" content="app-id=shortcuts">
+
     <style>
         * {
             margin: 0;
@@ -447,6 +452,54 @@
             touch-action: manipulation;
         }
 
+        /* Quick Access Section - NEW */
+        .quick-access {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quick-access h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .shortcut-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: background 0.2s;
+        }
+
+        .shortcut-btn:active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .ios-shortcut-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
         /* Add to Home Screen Banner - Enhanced for iPhone */
         #addToHomeBanner {
             display: none;
@@ -824,7 +877,7 @@
     <div id="addToHomeBanner">
         <div class="banner-content">
             <h3>📱 Install SecurePass</h3>
-            <p>Add to your home screen for the best full-screen experience!</p>
+            <p>Add to your home screen for quick access when filling passwords!</p>
             <div class="banner-buttons">
                 <button id="showInstructions">Show Me How</button>
                 <button id="dismissBanner" class="dismiss-btn">Maybe Later</button>
@@ -837,7 +890,8 @@
                     <li>Tap "Add" in the top right corner</li>
                     <li>SecurePass will appear on your home screen!</li>
                 </ol>
-                <p><strong>✨ Benefits:</strong> Full screen, faster loading, works offline!</p>
+                <p><strong>✨ Benefits:</strong> Quick access, full screen, works offline!</p>
+                <p><strong>💡 Pro Tip:</strong> Once installed, you can quickly switch to SecurePass when Safari asks for a password!</p>
             </div>
         </div>
     </div>
@@ -888,6 +942,20 @@
 
         <h1>🔐 SecurePass Gen</h1>
 
+        <!-- Quick Access Section - NEW -->
+        <div class="quick-access">
+            <h3>⚡ Quick Access</h3>
+            <div class="shortcuts-grid">
+                <button class="shortcut-btn" onclick="fillQuickDomain('gmail')">📧 Gmail</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('facebook')">📘 Facebook</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('instagram')">📷 Instagram</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('X')">🐦 X</button>
+            </div>
+            <div class="ios-shortcut-info">
+                💡 <strong>iOS Tip:</strong> After installing to home screen, you can quickly switch to SecurePass when Safari prompts for passwords. Just double-tap home button or swipe up and tap SecurePass!
+            </div>
+        </div>
+
         <div class="input-group">
             <label for="masterPassword">Master Password</label>
             <input type="password" id="masterPassword" placeholder="Enter your master password">
@@ -918,14 +986,14 @@
         </div>
 
         <div class="tips">
-            <h3>💡 Tips:</h3>
+            <h3>💡 Tips for Quick Access:</h3>
             <ul>
-                <li>Organize by service: gmail-personal, gmail-work, gmail-shopping</li>
-                <li>Use categories: work-slack, work-github, work-jira</li>
-                <li>Banking: chase-checking, wells-savings</li>
-                <li>Social: facebook-main, instagram-art, twitter-personal</li>
-                <li><strong>Spaces are ignored:</strong> "gmail - work" = "gmail-work"</li>
-                <li><strong>Case doesn't matter:</strong> "Gmail-Work" = "gmail-work"</li>
+                <li><strong>Add to Home Screen:</strong> Install as app for instant access</li>
+                <li><strong>iOS Users:</strong> Switch apps quickly when Safari asks for passwords</li>
+                <li><strong>Organize domains:</strong> gmail-personal, gmail-work, facebook-main</li>
+                <li><strong>Use categories:</strong> work-slack, personal-instagram</li>
+                <li><strong>Banking safety:</strong> chase-checking, wells-savings</li>
+                <li><strong>Remember:</strong> Same input always = same password</li>
             </ul>
         </div>
 
@@ -956,13 +1024,22 @@
                 <ul>
                     <li>🔐 <strong>Zero Data Collection</strong> - No servers, no tracking.</li>
                     <li>⚡ <strong>Offline-First</strong> - Works without internet.</li>
-                    <li>📱 <strong>PWA Support</strong> - Install as an app.</li>
+                    <li>📱 <strong>PWA Support</strong> - Install as an app for quick access.</li>
                     <li>🔢 <strong>Deterministic Generation</strong> - Same input = same password.</li>
                     <li>💾 <strong>Persistent Storage</strong> - Domain history saved locally.</li>
+                    <li>🚀 <strong>Quick Access</strong> - Switch from Safari easily when prompted.</li>
                 </ul>
 
                 <h3>How It Works:</h3>
                 <p>Your master password + domain name are hashed using <strong>PBKDF2 with 100,000 iterations</strong> to generate a unique password. Domain history is stored locally in your browser.</p>
+
+                <h3>Quick Access on iOS:</h3>
+                <p>After installing to home screen, when Safari prompts for a password, you can quickly switch to SecurePass using:</p>
+                <ul>
+                    <li>Double-tap home button and select SecurePass</li>
+                    <li>Swipe up from bottom and tap SecurePass</li>
+                    <li>Use Control Center app switcher</li>
+                </ul>
 
                 <h3>Author:</h3>
                 <p>Created by <strong>hhhpraise</strong> - A developer passionate about privacy and security.</p>
@@ -978,7 +1055,7 @@
 
                 <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
 
-                <div class="version">v1.2.0 - Enhanced mobile experience!</div>
+                <div class="version">v1.3.0 - Enhanced mobile quick access!</div>
 
                 <button class="close-about" id="closeAbout">Close</button>
             </div>
@@ -1039,6 +1116,47 @@
             }, false);
         }
 
+        // Quick domain filling - NEW FEATURE
+        function fillQuickDomain(service) {
+            const domainInput = document.getElementById('domain');
+            const currentDomain = domainInput.value.toLowerCase();
+
+            // Smart domain suggestion based on current context
+            if (currentDomain.includes(service)) {
+                // If service already in domain, suggest variations
+                domainInput.value = `${service}-main`;
+            } else if (currentDomain) {
+                // If there's already text, append service
+                domainInput.value = `${service}-${currentDomain}`;
+            } else {
+                // Default suggestion
+                domainInput.value = `${service}-personal`;
+            }
+
+            // Focus on master password if empty, otherwise generate
+            const masterPassword = document.getElementById('masterPassword');
+            if (!masterPassword.value) {
+                masterPassword.focus();
+                showMessage(`Enter master password to generate ${service} password`);
+            } else {
+                generatePassword();
+            }
+        }
+
+        // URL parameter handling for quick access - NEW FEATURE
+        function handleURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const domain = urlParams.get('domain');
+            const service = urlParams.get('service');
+
+            if (domain) {
+                document.getElementById('domain').value = decodeURIComponent(domain);
+                showMessage(`Pre-filled domain: ${domain}`);
+            } else if (service) {
+                fillQuickDomain(service);
+            }
+        }
+
         // Initialize app
         function initApp() {
             // Check localStorage availability
@@ -1046,6 +1164,9 @@
 
             // Load stored data
             loadStoredData();
+
+            // Handle URL parameters for quick access
+            handleURLParams();
 
             // Apply double-tap zoom prevention to key elements
             const elementsToProtect = [
@@ -1080,6 +1201,34 @@
 
             // Check if we should show add to home banner
             setTimeout(showAddToHomeBanner, 3000);
+
+            // Register service worker for enhanced PWA experience
+            registerServiceWorker();
+        }
+
+        // Service Worker registration for better PWA experience - NEW
+        function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                // Create a simple service worker inline
+                const swCode = `
+                    self.addEventListener('fetch', event => {
+                        // Cache-first strategy for offline support
+                        if (event.request.url.includes('securepass')) {
+                            event.respondWith(
+                                caches.match(event.request)
+                                    .then(response => response || fetch(event.request))
+                            );
+                        }
+                    });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(() => console.log('SW registered for offline support'))
+                    .catch(() => console.log('SW registration failed'));
+            }
         }
 
         // Check if localStorage is available
@@ -1185,70 +1334,6 @@
             }
         }
 
-        // Export/Import functionality
-        function exportDomains() {
-            if (domains.length === 0) {
-                showMessage('No domains to export');
-                return;
-            }
-
-            const data = {
-                domains: domains,
-                exportDate: new Date().toISOString(),
-                version: '1.2.0'
-            };
-
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `securepass-domains-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            showMessage('Domains exported successfully');
-        }
-
-        function importDomains(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = JSON.parse(e.target.result);
-
-                    if (data.domains && Array.isArray(data.domains)) {
-                        // Merge with existing domains, avoiding duplicates based on normalized names
-                        const existingNormalized = domains.map(d => d.normalized || normalizeDomainName(d.display || d));
-                        const newDomains = data.domains.filter(domain => {
-                            const normalized = typeof domain === 'object' ? domain.normalized : normalizeDomainName(domain);
-                            return !existingNormalized.includes(normalized);
-                        });
-
-                        domains = [...domains, ...newDomains];
-
-                        // Limit total domains
-                        if (domains.length > 100) {
-                            domains = domains.slice(0, 100);
-                        }
-
-                        saveData();
-                        loadDomainHistory();
-                        showMessage(`Imported ${newDomains.length} new domains`);
-                    } else {
-                        showMessage('Invalid file format');
-                    }
-                } catch (error) {
-                    showMessage('Error reading file');
-                    console.error('Import error:', error);
-                }
-            };
-            reader.readAsText(file);
-        }
-
         // Set up event listeners
         function setupEventListeners() {
             // PIN keypad
@@ -1279,17 +1364,6 @@
                     if (document.getElementById('masterPassword') === document.activeElement ||
                         document.getElementById('domain') === document.activeElement) {
                         generatePassword();
-                    }
-                }
-            });
-
-            // Add export/import buttons functionality (could be added to UI later)
-            // For now, we'll add them as keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey || e.metaKey) {
-                    if (e.key === 'e' && isAuthenticated) {
-                        e.preventDefault();
-                        exportDomains();
                     }
                 }
             });
@@ -1480,7 +1554,7 @@
                     lockApp();
                     showMessage('App locked due to inactivity');
                 }
-            }, 300000); // 5 minutes
+            }, 60000); // 1 minutes
         }
 
         function resetTimeout() {
@@ -1556,6 +1630,11 @@
                 // Save domain to history (store both original case for display and normalized for generation)
                 saveDomainToHistory(domain, normalizedDomain);
 
+                // Provide quick copy tip for mobile users
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    showMessage('Password generated! Tap "Copy" then switch back to Safari to paste.');
+                }
+
             } catch (error) {
                 showMessage('Error generating password');
                 console.error('Password generation error:', error);
@@ -1595,19 +1674,24 @@
             return result.join('');
         }
 
-        // Copy to clipboard
+        // Copy to clipboard with enhanced mobile feedback
         async function copyPassword() {
             const password = document.getElementById('passwordDisplay').textContent;
 
             try {
                 await navigator.clipboard.writeText(password);
-                copyBtn.textContent = 'Copied!';
+                copyBtn.textContent = 'Copied! ✓';
                 copyBtn.classList.add('copied');
+
+                // Enhanced feedback for mobile users
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    showMessage('Password copied! You can now switch back to Safari and paste it.');
+                }
 
                 setTimeout(() => {
                     copyBtn.textContent = 'Copy to Clipboard';
                     copyBtn.classList.remove('copied');
-                }, 2000);
+                }, 3000);
             } catch (error) {
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
@@ -1723,6 +1807,12 @@
             }
 
             historySection.style.display = 'none';
+
+            // Focus on master password if empty
+            const masterPassword = document.getElementById('masterPassword');
+            if (!masterPassword.value) {
+                masterPassword.focus();
+            }
         }
 
         // FIXED: Delete based on normalized name for consistency and clean up preferences
@@ -1827,6 +1917,7 @@
         // Global functions for onclick handlers
         window.useDomain = useDomain;
         window.deleteDomain = deleteDomain;
+        window.fillQuickDomain = fillQuickDomain;
 
         // Initialize app when loaded
         window.addEventListener('DOMContentLoaded', initApp);
@@ -1848,6 +1939,27 @@
             currentPin = '';
             if (lockTimeout) {
                 clearTimeout(lockTimeout);
+            }
+        });
+
+        // Enhanced visibility change handling for better mobile experience
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                // App is going to background - start shorter timeout for mobile context switching
+                if (isAuthenticated) {
+                    clearTimeout(lockTimeout);
+                    lockTimeout = setTimeout(() => {
+                        if (isAuthenticated && !document.hidden) {
+                            lockApp();
+                            showMessage('App locked after background time');
+                        }
+                    }, 120000); // 2 minutes when in background
+                }
+            } else {
+                // App is coming to foreground - reset to normal timeout
+                if (isAuthenticated) {
+                    startAutoLockTimer();
+                }
             }
         });
     </script>
