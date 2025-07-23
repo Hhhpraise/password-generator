@@ -420,34 +420,114 @@
             align-items: center;
         }
 
-        /* Add to Home Screen Banner */
+        /* Add to Home Screen Banner - Enhanced for iPhone */
         #addToHomeBanner {
             display: none;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             color: white;
-            padding: 15px;
+            padding: 20px 15px;
             text-align: center;
             z-index: 2000;
             animation: slideUp 0.5s ease;
+            border-top: 2px solid #667eea;
+        }
+
+        #addToHomeBanner .banner-content {
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        #addToHomeBanner h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #667eea;
         }
 
         #addToHomeBanner p {
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        #addToHomeBanner .banner-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
         }
 
         #addToHomeBanner button {
             background: #48bb78;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 20px;
+            border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        #addToHomeBanner button:hover {
+            background: #38a169;
+        }
+
+        #addToHomeBanner .dismiss-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        #addToHomeBanner .dismiss-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Enhanced iPhone instructions */
+        .ios-instructions {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .ios-instructions.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .ios-instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .ios-instructions li {
+            margin-bottom: 8px;
+        }
+
+        .share-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #007AFF;
+            border-radius: 3px;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .share-icon::before {
+            content: "⬆";
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: white;
+            font-size: 12px;
         }
 
         @keyframes slideUp {
@@ -668,10 +748,26 @@
         ">Get Started</button>
     </div>
 
-    <!-- Add to Home Screen Banner -->
+    <!-- Add to Home Screen Banner - Enhanced -->
     <div id="addToHomeBanner">
-        <p>📱 Install this app for quick access</p>
-        <button id="dismissBanner">Got it!</button>
+        <div class="banner-content">
+            <h3>📱 Install SecurePass</h3>
+            <p>Add to your home screen for the best full-screen experience!</p>
+            <div class="banner-buttons">
+                <button id="showInstructions">Show Me How</button>
+                <button id="dismissBanner" class="dismiss-btn">Maybe Later</button>
+            </div>
+            <div class="ios-instructions" id="iosInstructions">
+                <strong>📋 How to install on iPhone:</strong>
+                <ol>
+                    <li>Tap the Share button <span class="share-icon"></span> at the bottom of Safari</li>
+                    <li>Scroll down and tap "Add to Home Screen"</li>
+                    <li>Tap "Add" in the top right corner</li>
+                    <li>SecurePass will appear on your home screen!</li>
+                </ol>
+                <p><strong>✨ Benefits:</strong> Full screen, faster loading, works offline!</p>
+            </div>
+        </div>
     </div>
 
     <!-- Security Screen -->
@@ -844,6 +940,8 @@
         const closeAboutBtn = document.getElementById('closeAbout');
         const addToHomeBanner = document.getElementById('addToHomeBanner');
         const dismissBannerBtn = document.getElementById('dismissBanner');
+        const showInstructionsBtn = document.getElementById('showInstructions');
+        const iosInstructions = document.getElementById('iosInstructions');
         const storageStatus = document.getElementById('storageStatus');
 
         // Initialize app
@@ -1052,6 +1150,7 @@
             toggleAboutBtn.addEventListener('click', toggleAbout);
             closeAboutBtn.addEventListener('click', () => aboutSection.style.display = 'none');
             dismissBannerBtn.addEventListener('click', dismissBanner);
+            showInstructionsBtn.addEventListener('click', showInstallInstructions);
 
             // Auto-lock events
             document.addEventListener('keypress', resetTimeout);
@@ -1438,19 +1537,34 @@
             aboutSection.style.display = aboutSection.style.display === 'none' ? 'block' : 'none';
         }
 
-        // Add to Home Screen functionality
+        // Add to Home Screen functionality - Enhanced for iPhone
         function showAddToHomeBanner() {
             // Check if it's iOS Safari and not already added to home screen
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             const isStandalone = window.navigator.standalone;
+            const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
-            if (isIOS && !isStandalone) {
-                addToHomeBanner.style.display = 'block';
+            // Only show on iOS Safari when not in standalone mode
+            if (isIOS && isSafari && !isStandalone) {
+                // Check if user hasn't dismissed it before
+                const dismissed = localStorage.getItem('addToHomeDismissed');
+                if (!dismissed) {
+                    addToHomeBanner.style.display = 'block';
+                }
             }
+        }
+
+        function showInstallInstructions() {
+            iosInstructions.classList.add('show');
+            showInstructionsBtn.style.display = 'none';
         }
 
         function dismissBanner() {
             addToHomeBanner.style.display = 'none';
+            // Remember user's choice
+            if (storageAvailable) {
+                localStorage.setItem('addToHomeDismissed', 'true');
+            }
         }
 
         // Utility functions
