@@ -1253,7 +1253,7 @@
             const domainInput = document.getElementById('domain');
             domainInput.value = prefix;
             document.getElementById('masterPassword').focus();
-            showMessage(`Domain set to "${prefix}" - enter master password`);
+            showMessage(`Domain set to "${prefix}"-`);
         }
 
         // Handle URL parameters for quick access
@@ -1458,7 +1458,6 @@
                 document.getElementById('passwordDisplay').textContent = password;
                 document.getElementById('result').classList.add('show');
                 saveDomainToHistory(domain, normalizedDomain);
-                showMessage('Password generated! Tap "Copy" to copy to clipboard.');
             } catch (error) {
                 showMessage('Error generating password');
             }
@@ -1503,7 +1502,6 @@
                 await navigator.clipboard.writeText(password);
                 copyBtn.textContent = 'Copied! ✓';
                 copyBtn.classList.add('copied');
-                showMessage('Password copied to clipboard!');
                 setTimeout(() => {
                     copyBtn.textContent = 'Copy to Clipboard';
                     copyBtn.classList.remove('copied');
@@ -1515,7 +1513,7 @@
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showMessage('Password copied to clipboard');
+
             }
         }
 
@@ -1615,7 +1613,7 @@
                 lengthSelect.value = domainPreferences[normalizedDomain];
                 lengthSelect.style.backgroundColor = '#e6fffa';
                 setTimeout(() => lengthSelect.style.backgroundColor = '', 1000);
-                showMessage(`Restored ${domainPreferences[normalizedDomain]}-character length`);
+
             }
 
             historySection.style.display = 'none';
