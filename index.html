@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FIX: Prevent zooming on input/double-tap -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- FIX: Prevent zooming on input/double-tap with enhanced settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -31,11 +31,22 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            /* Enhanced touch handling to prevent double-tap zoom */
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+        }
+
+        html {
+            /* Prevent double-tap zoom on iOS */
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            touch-action: manipulation;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* Changed to black background for better visual appeal */
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 20px;
             -webkit-user-select: none;
@@ -44,6 +55,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Prevent overscroll bounce on iOS */
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         .container {
@@ -52,8 +66,10 @@
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
+            /* Prevent double-tap zoom on container */
+            touch-action: manipulation;
         }
 
         /* Security Screen Styles */
@@ -82,6 +98,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            touch-action: manipulation;
         }
 
         .pin-container {
@@ -125,6 +142,9 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            touch-action: manipulation;
+            min-height: 50px;
+            min-width: 50px;
         }
 
         .pin-key:active {
@@ -187,6 +207,7 @@
             background: white;
             -webkit-user-select: text;
             user-select: text;
+            touch-action: manipulation;
         }
 
         input:focus, select:focus {
@@ -207,6 +228,7 @@
             cursor: pointer;
             transition: transform 0.2s ease;
             margin-bottom: 20px;
+            touch-action: manipulation;
         }
 
         .generate-btn:active {
@@ -257,6 +279,7 @@
             cursor: pointer;
             font-size: 14px;
             transition: background 0.3s ease;
+            touch-action: manipulation;
         }
 
         .copy-btn:active {
@@ -316,6 +339,7 @@
             border-radius: 6px;
             font-size: 12px;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .toggle-history {
@@ -366,6 +390,7 @@
             font-size: 14px;
             color: #2d3748;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .domain-name:active {
@@ -383,6 +408,7 @@
             border-radius: 4px;
             font-size: 12px;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .use-btn {
@@ -418,6 +444,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation;
         }
 
         /* Add to Home Screen Banner - Enhanced for iPhone */
@@ -470,6 +497,7 @@
             cursor: pointer;
             font-size: 14px;
             transition: background 0.3s;
+            touch-action: manipulation;
         }
 
         #addToHomeBanner button:hover {
@@ -554,7 +582,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -630,6 +658,7 @@
             margin-top: 15px;
             cursor: pointer;
             transition: all 0.2s;
+            touch-action: manipulation;
         }
 
         .toggle-about:active {
@@ -647,6 +676,7 @@
             margin-top: 20px;
             cursor: pointer;
             transition: background 0.2s;
+            touch-action: manipulation;
         }
 
         .close-about:active {
@@ -664,6 +694,47 @@
             margin-top: 15px;
             text-decoration: none;
             font-weight: 600;
+            touch-action: manipulation;
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(72, 187, 120, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #48bb78;
+        }
+
+        .contact-section h4 {
+            color: #38a169;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .contact-section p {
+            color: #2d3748;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .contact-email {
+            display: inline-block;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .contact-email:hover, .contact-email:active {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
         }
 
         .version {
@@ -745,6 +816,7 @@
             font-weight: bold;
             margin-top: 30px;
             cursor: pointer;
+            touch-action: manipulation;
         ">Get Started</button>
     </div>
 
@@ -845,7 +917,7 @@
             <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
         </div>
 
-                <div class="tips">
+        <div class="tips">
             <h3>💡 Tips:</h3>
             <ul>
                 <li>Organize by service: gmail-personal, gmail-work, gmail-shopping</li>
@@ -895,9 +967,18 @@
                 <h3>Author:</h3>
                 <p>Created by <strong>hhhpraise</strong> - A developer passionate about privacy and security.</p>
 
+                <!-- Contact Section -->
+                <div class="contact-section">
+                    <h4>📧 Contact & Feedback</h4>
+                    <p>Have suggestions, found a bug, or want to share feedback? I'd love to hear from you!</p>
+                    <a href="mailto:hhhpraise33@gmail.com?subject=SecurePass%20Feedback" class="contact-email">
+                        ✉️ hhhpraise33@gmail.com
+                    </a>
+                </div>
+
                 <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
 
-                <div class="version">v1.1.0 - Now with persistent storage!</div>
+                <div class="version">v1.2.0 - Enhanced mobile experience!</div>
 
                 <button class="close-about" id="closeAbout">Close</button>
             </div>
@@ -944,6 +1025,18 @@
         const iosInstructions = document.getElementById('iosInstructions');
         const storageStatus = document.getElementById('storageStatus');
 
+        // Enhanced mobile event handling to prevent double-tap zoom
+        function preventDoubleClickZoom(element) {
+            let lastTouchEnd = 0;
+            element.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        }
+
         // Initialize app
         function initApp() {
             // Check localStorage availability
@@ -951,6 +1044,16 @@
 
             // Load stored data
             loadStoredData();
+
+            // Apply double-tap zoom prevention to key elements
+            const elementsToProtect = [
+                document.body,
+                ...document.querySelectorAll('button'),
+                ...document.querySelectorAll('input'),
+                ...document.querySelectorAll('.domain-name')
+            ];
+
+            elementsToProtect.forEach(preventDoubleClickZoom);
 
             document.getElementById('startBtn').addEventListener('click', () => {
                 loadingScreen.style.opacity = '0';
@@ -1079,7 +1182,7 @@
             const data = {
                 domains: domains,
                 exportDate: new Date().toISOString(),
-                version: '1.1.0'
+                version: '1.2.0'
             };
 
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
