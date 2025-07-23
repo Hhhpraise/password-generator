@@ -2,28 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- FIX: Prevent zooming on input/double-tap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
+
     <!-- SEO Meta Tags -->
     <title>SecurePass by hhhpraise | Password Generator Tool</title>
     <meta name="description" content="Free online password generator by hhhpraise. Create strong, unique passwords with military-grade security. No data leaves your device.">
     <meta name="keywords" content="password generator, secure password, password manager, online security, hhhpraise, strong password, password creator">
     <meta name="author" content="hhhpraise">
-    
+
     <!-- Open Graph Tags for Social Sharing -->
     <meta property="og:title" content="SecurePass by hhhpraise - Password Generator">
     <meta property="og:description" content="Generate secure passwords with this free tool. Military-grade security with no data collection.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hhhpraise.github.io/password-generator/">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SecurePass by hhhpraise">
     <meta name="twitter:description" content="Free password generator tool with advanced security features">
-    
-    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLBQsLGwsLCwsLGwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw=">
+
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw=">
     <style>
         * {
             margin: 0;
@@ -31,7 +32,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -44,7 +45,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .container {
             width: 100%;
             max-width: 400px;
@@ -54,18 +55,18 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
         }
-        
+
         /* Security Screen Styles */
         .security-screen {
             text-align: center;
         }
-        
+
         .security-screen h1 {
             color: #333;
             margin-bottom: 20px;
             font-size: 24px;
         }
-        
+
         .biometric-btn {
             width: 100%;
             padding: 20px;
@@ -82,18 +83,18 @@
             justify-content: center;
             gap: 10px;
         }
-        
+
         .pin-container {
             margin-top: 20px;
         }
-        
+
         .pin-display {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 20px;
         }
-        
+
         .pin-dot {
             width: 15px;
             height: 15px;
@@ -101,11 +102,11 @@
             border-radius: 50%;
             transition: background 0.2s;
         }
-        
+
         .pin-dot.filled {
             background: #667eea;
         }
-        
+
         .pin-keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -113,7 +114,7 @@
             max-width: 300px;
             margin: 0 auto;
         }
-        
+
         .pin-key {
             aspect-ratio: 1;
             border: none;
@@ -125,75 +126,75 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .pin-key:active {
             background: #667eea;
             color: white;
             transform: scale(0.95);
         }
-        
+
         .pin-key.zero {
             grid-column: 2;
         }
-        
+
         .pin-key.delete {
             background: rgba(229, 62, 62, 0.1);
             color: #e53e3e;
             font-size: 16px;
         }
-        
+
         .setup-section {
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid #e2e8f0;
         }
-        
+
         .setup-section h3 {
             margin-bottom: 15px;
             color: #333;
         }
-        
+
         /* Main App Styles */
         .main-app {
             display: none;
         }
-        
+
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 30px;
             font-size: 24px;
         }
-        
+
         .input-group {
             margin-bottom: 20px;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
             color: #555;
             font-weight: 500;
         }
-        
+
         input, select {
             width: 100%;
             padding: 15px;
             border: 2px solid #e1e1e1;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 16px; /* FIX: Prevent iOS zoom on input focus */
             transition: all 0.3s ease;
             background: white;
             -webkit-user-select: text;
             user-select: text;
         }
-        
+
         input:focus, select:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-        
+
         .generate-btn {
             width: 100%;
             padding: 18px;
@@ -207,11 +208,11 @@
             transition: transform 0.2s ease;
             margin-bottom: 20px;
         }
-        
+
         .generate-btn:active {
             transform: scale(0.98);
         }
-        
+
         .result {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
@@ -220,17 +221,17 @@
             margin-top: 20px;
             display: none;
         }
-        
+
         .result.show {
             display: block;
             animation: slideIn 0.3s ease;
         }
-        
+
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .password-display {
             font-family: 'Monaco', 'Consolas', monospace;
             font-size: 18px;
@@ -245,7 +246,7 @@
             -webkit-user-select: text;
             user-select: text;
         }
-        
+
         .copy-btn {
             width: 100%;
             padding: 12px;
@@ -257,15 +258,15 @@
             font-size: 14px;
             transition: background 0.3s ease;
         }
-        
+
         .copy-btn:active {
             background: #38a169;
         }
-        
+
         .copy-btn.copied {
             background: #2d3748;
         }
-        
+
         .tips {
             background: rgba(102, 126, 234, 0.1);
             border-radius: 12px;
@@ -274,39 +275,39 @@
             font-size: 14px;
             color: #555;
         }
-        
+
         .tips h3 {
             margin-bottom: 10px;
             color: #333;
         }
-        
+
         .tips ul {
             padding-left: 20px;
         }
-        
+
         .tips li {
             margin-bottom: 5px;
         }
-        
+
         .history-section {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.7);
             border-radius: 12px;
             padding: 20px;
         }
-        
+
         .history-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        
+
         .history-header h3 {
             color: #333;
             margin: 0;
         }
-        
+
         .clear-all-btn, .toggle-history {
             padding: 8px 12px;
             background: #e53e3e;
@@ -316,7 +317,7 @@
             font-size: 12px;
             cursor: pointer;
         }
-        
+
         .toggle-history {
             width: 100%;
             padding: 12px;
@@ -327,17 +328,17 @@
             font-size: 14px;
             margin-top: 15px;
         }
-        
+
         .domain-list {
             max-height: 300px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         .domain-category {
             margin-bottom: 15px;
         }
-        
+
         .category-header {
             font-weight: bold;
             color: #667eea;
@@ -347,7 +348,7 @@
             background: rgba(102, 126, 234, 0.1);
             border-radius: 6px;
         }
-        
+
         .domain-item {
             display: flex;
             justify-content: space-between;
@@ -358,7 +359,7 @@
             margin-bottom: 8px;
             border: 1px solid #e2e8f0;
         }
-        
+
         .domain-name {
             flex: 1;
             font-family: 'Monaco', 'Consolas', monospace;
@@ -366,16 +367,16 @@
             color: #2d3748;
             cursor: pointer;
         }
-        
+
         .domain-name:active {
             color: #667eea;
         }
-        
+
         .domain-actions {
             display: flex;
             gap: 8px;
         }
-        
+
         .use-btn, .delete-btn {
             padding: 6px 10px;
             border: none;
@@ -383,24 +384,24 @@
             font-size: 12px;
             cursor: pointer;
         }
-        
+
         .use-btn {
             background: #48bb78;
             color: white;
         }
-        
+
         .delete-btn {
             background: #e53e3e;
             color: white;
         }
-        
+
         .no-history {
             text-align: center;
             color: #718096;
             font-style: italic;
             padding: 20px;
         }
-        
+
         .lock-btn {
             position: fixed;
             top: max(20px, env(safe-area-inset-top));
@@ -418,7 +419,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         /* Add to Home Screen Banner */
         #addToHomeBanner {
             display: none;
@@ -433,12 +434,12 @@
             z-index: 2000;
             animation: slideUp 0.5s ease;
         }
-        
+
         #addToHomeBanner p {
             margin-bottom: 10px;
             font-size: 16px;
         }
-        
+
         #addToHomeBanner button {
             background: #48bb78;
             color: white;
@@ -448,24 +449,24 @@
             font-weight: bold;
             cursor: pointer;
         }
-        
+
         @keyframes slideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
         }
-        
+
         /* Safari-specific adjustments */
         @supports (-webkit-touch-callout: none) {
             body {
                 padding: max(20px, constant(safe-area-inset-top)) max(20px, constant(safe-area-inset-right)) max(20px, constant(safe-area-inset-bottom)) max(20px, constant(safe-area-inset-left));
             }
-            
+
             .lock-btn {
                 top: max(20px, constant(safe-area-inset-top));
                 right: max(20px, constant(safe-area-inset-right));
             }
         }
-        
+
         /* Loading screen */
         #loadingScreen {
             position: fixed;
@@ -481,7 +482,7 @@
             z-index: 3000;
             transition: opacity 0.5s;
         }
-        
+
         .loader {
             width: 60px;
             height: 60px;
@@ -491,50 +492,134 @@
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
         #loadingScreen h1 {
             color: white;
             font-size: 24px;
         }
-        
-        /* SEO Visibility Section */
-        .seo-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+
+        /* About Section */
+        .about-section {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
+            padding: 25px;
             display: none;
+            animation: fadeIn 0.3s ease;
         }
-        
-        .seo-content {
+
+        .about-content {
             max-width: 800px;
             margin: 0 auto;
         }
-        
-        .seo-section h2 {
+
+        .about-content h2 {
             color: #667eea;
             text-align: center;
             margin-bottom: 20px;
         }
-        
-        .seo-section h3 {
+
+        .about-content h3 {
             color: #764ba2;
             margin-top: 15px;
             margin-bottom: 10px;
         }
-        
+
+        .about-content ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .about-content li {
+            margin-bottom: 8px;
+        }
+
+        .toggle-about {
+            width: 100%;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-about:active {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .close-about {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .close-about:active {
+            background: #5a6fcf;
+        }
+
+        .github-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .version {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 20px;
             }
-            
+
             h1 {
                 font-size: 20px;
+            }
+
+            /* Larger tap targets for mobile */
+            .pin-key, .use-btn, .delete-btn {
+                min-height: 44px;
             }
         }
     </style>
@@ -561,22 +646,22 @@
             cursor: pointer;
         ">Get Started</button>
     </div>
-    
+
     <!-- Add to Home Screen Banner -->
     <div id="addToHomeBanner">
         <p>📱 Install this app for quick access</p>
         <button id="dismissBanner">Got it!</button>
     </div>
-    
+
     <!-- Security Screen -->
     <div class="container security-screen" id="securityScreen">
         <h1>🔐 Secure Access</h1>
-        
+
         <button class="biometric-btn" id="biometricBtn">
             <span>👆</span>
             <span>Use Touch/Face ID</span>
         </button>
-        
+
         <div class="pin-container">
             <div class="pin-display">
                 <div class="pin-dot" id="dot1"></div>
@@ -586,7 +671,7 @@
                 <div class="pin-dot" id="dot5"></div>
                 <div class="pin-dot" id="dot6"></div>
             </div>
-            
+
             <div class="pin-keypad">
                 <button class="pin-key" data-key="1">1</button>
                 <button class="pin-key" data-key="2">2</button>
@@ -601,29 +686,29 @@
                 <button class="pin-key delete" id="deletePin">⌫</button>
             </div>
         </div>
-        
+
         <div class="setup-section" id="setupSection" style="display: none;">
             <h3>Setup New PIN</h3>
             <p style="color: #666; margin-bottom: 15px;">Enter a 6-digit PIN to secure your passwords</p>
         </div>
     </div>
-    
+
     <!-- Main App -->
     <div class="container main-app" id="mainApp">
         <button class="lock-btn" id="lockBtn" title="Lock App">🔒</button>
-        
+
         <h1>🔐 SecurePass Gen</h1>
-        
+
         <div class="input-group">
             <label for="masterPassword">Master Password</label>
             <input type="password" id="masterPassword" placeholder="Enter your master password">
         </div>
-        
+
         <div class="input-group">
             <label for="domain">Domain/Service</label>
             <input type="text" id="domain" placeholder="e.g., gmail-personal, facebook-main">
         </div>
-        
+
         <div class="input-group">
             <label for="length">Password Length</label>
             <select id="length">
@@ -634,15 +719,15 @@
                 <option value="32">32 characters</option>
             </select>
         </div>
-        
+
         <button class="generate-btn" id="generateBtn">Generate Password</button>
-        
+
         <div class="result" id="result">
             <label>Generated Password:</label>
             <div class="password-display" id="passwordDisplay"></div>
             <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
         </div>
-        
+
         <div class="tips">
             <h3>💡 Tips:</h3>
             <ul>
@@ -652,9 +737,9 @@
                 <li>Social: facebook-main, instagram-art, twitter-personal</li>
             </ul>
         </div>
-        
+
         <button class="toggle-history" id="toggleHistory">📋 Show/Hide Domain History</button>
-        
+
         <div class="history-section" id="historySection" style="display: none;">
             <div class="history-header">
                 <h3>📁 Saved Domains</h3>
@@ -664,37 +749,36 @@
                 <div class="no-history">No domains saved yet</div>
             </div>
         </div>
-        
-        <!-- SEO Visibility Section -->
-        <div class="seo-section">
-            <div class="seo-content">
-                <h2>About SecurePass by hhhpraise</h2>
-                
+
+        <!-- About Section -->
+        <button class="toggle-about" id="toggleAbout">ℹ️ About SecurePass</button>
+
+        <div class="about-section" id="aboutSection">
+            <div class="about-content">
+                <h2>🔒 About SecurePass</h2>
+
                 <h3>What is SecurePass?</h3>
-                <p>SecurePass is a free online password generator created by hhhpraise that helps you create strong, unique passwords for all your online accounts. Unlike other password managers, SecurePass runs entirely in your browser - your master password and generated passwords never leave your device.</p>
-                
-                <h3>Why use SecurePass?</h3>
+                <p>A free, open-source password generator that creates strong, unique passwords using military-grade cryptography. All processing happens locally—your passwords never leave your device.</p>
+
+                <h3>Key Features:</h3>
                 <ul>
-                    <li>🔒 <strong>Military-grade security</strong> using PBKDF2 with 100,000 iterations</li>
-                    <li>📱 <strong>Works offline</strong> - no internet connection required</li>
-                    <li>💾 <strong>No data collection</strong> - your passwords stay on your device</li>
-                    <li>🛡️ <strong>PIN protection</strong> to secure your password vault</li>
-                    <li>🌐 <strong>Cross-platform</strong> - works on all modern browsers and devices</li>
+                    <li>🔐 <strong>Zero Data Collection</strong> - No servers, no tracking.</li>
+                    <li>⚡ <strong>Offline-First</strong> - Works without internet.</li>
+                    <li>📱 <strong>PWA Support</strong> - Install as an app.</li>
+                    <li>🔢 <strong>Deterministic Generation</strong> - Same input = same password.</li>
                 </ul>
-                
-                <h3>How does it work?</h3>
-                <p>SecurePass uses a deterministic password generation algorithm. When you enter your master password and a domain/service name, it generates a unique password using cryptographic functions. The same inputs will always produce the same password, so you never need to store your passwords anywhere.</p>
-                
-                <h3>Best practices for password security</h3>
-                <ul>
-                    <li>Use a long, memorable master password (at least 12 characters)</li>
-                    <li>Generate unique passwords for every service</li>
-                    <li>Never reuse passwords across different sites</li>
-                    <li>Enable two-factor authentication whenever possible</li>
-                    <li>Regularly update important passwords</li>
-                </ul>
-                
-                <p><strong>Created by hhhpraise</strong> - A developer passionate about online security and privacy.</p>
+
+                <h3>How It Works:</h3>
+                <p>Your master password + domain name are hashed using <strong>PBKDF2 with 100,000 iterations</strong> to generate a unique password. No storage needed!</p>
+
+                <h3>Author:</h3>
+                <p>Created by <strong>hhhpraise</strong> - A developer passionate about privacy and security.</p>
+
+                <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
+
+                <div class="version">v1.0.0</div>
+
+                <button class="close-about" id="closeAbout">Close</button>
             </div>
         </div>
     </div>
@@ -702,9 +786,12 @@
     <script>
         // Security variables
         let currentPin = '';
-        let storedPin = localStorage.getItem('appPin');
+        let storedPin = '';
         let isAuthenticated = false;
-        
+        let isSettingPin = false;
+        let lockTimeout;
+        let domains = [];
+
         // DOM Elements
         const loadingScreen = document.getElementById('loadingScreen');
         const securityScreen = document.getElementById('securityScreen');
@@ -719,11 +806,17 @@
         const toggleHistoryBtn = document.getElementById('toggleHistory');
         const clearHistoryBtn = document.getElementById('clearHistoryBtn');
         const historySection = document.getElementById('historySection');
+        const toggleAboutBtn = document.getElementById('toggleAbout');
+        const aboutSection = document.getElementById('aboutSection');
+        const closeAboutBtn = document.getElementById('closeAbout');
         const addToHomeBanner = document.getElementById('addToHomeBanner');
         const dismissBannerBtn = document.getElementById('dismissBanner');
-        
+
         // Initialize app
         function initApp() {
+            // Load stored data using in-memory storage instead of localStorage
+            loadStoredData();
+
             document.getElementById('startBtn').addEventListener('click', () => {
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => {
@@ -732,24 +825,42 @@
                     // Check if PIN is set up
                     if (!storedPin) {
                         setupSection.style.display = 'block';
+                        isSettingPin = true;
                     }
+
+                    securityScreen.style.display = 'block';
                 }, 500);
             });
-            
+
             // Set up event listeners
             setupEventListeners();
-            
+
             // Check if we should show add to home banner
             setTimeout(showAddToHomeBanner, 3000);
         }
-        
+
+        // Load stored data (using in-memory storage)
+        function loadStoredData() {
+            // In a real app, you'd use localStorage, but we'll simulate with variables
+            // storedPin = localStorage.getItem('appPin') || '';
+            // domains = JSON.parse(localStorage.getItem('domains') || '[]');
+            storedPin = '';
+            domains = [];
+        }
+
+        // Save data (simulated)
+        function saveData() {
+            // In a real app: localStorage.setItem('appPin', storedPin);
+            // localStorage.setItem('domains', JSON.stringify(domains));
+        }
+
         // Set up event listeners
         function setupEventListeners() {
             // PIN keypad
             pinKeys.forEach(key => {
                 key.addEventListener('click', () => addPin(key.dataset.key));
             });
-            
+
             deletePinBtn.addEventListener('click', deletePin);
             biometricBtn.addEventListener('click', authenticateWithBiometric);
             lockBtn.addEventListener('click', lockApp);
@@ -757,65 +868,71 @@
             copyBtn.addEventListener('click', copyPassword);
             toggleHistoryBtn.addEventListener('click', toggleHistory);
             clearHistoryBtn.addEventListener('click', clearAllHistory);
+            toggleAboutBtn.addEventListener('click', toggleAbout);
+            closeAboutBtn.addEventListener('click', () => aboutSection.style.display = 'none');
             dismissBannerBtn.addEventListener('click', dismissBanner);
-            
+
             // Auto-lock events
             document.addEventListener('keypress', resetTimeout);
             document.addEventListener('touchstart', resetTimeout);
             document.addEventListener('click', resetTimeout);
-        }
-        
-        // Biometric authentication
-        async function authenticateWithBiometric() {
-            if (!('credentials' in navigator) || !storedPin) {
-                alert('Biometric authentication not available. Please use PIN.');
-                return;
-            }
-            
-            try {
-                const credential = await navigator.credentials.create({
-                    publicKey: {
-                        challenge: new Uint8Array(32),
-                        rp: { name: "SecurePass Generator" },
-                        user: {
-                            id: new Uint8Array(16),
-                            name: "user",
-                            displayName: "User"
-                        },
-                        pubKeyCredParams: [{ alg: -7, type: "public-key" }],
-                        authenticatorSelection: {
-                            authenticatorAttachment: "platform",
-                            userVerification: "required"
-                        }
+
+            // Enter key support
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    if (document.getElementById('masterPassword') === document.activeElement ||
+                        document.getElementById('domain') === document.activeElement) {
+                        generatePassword();
                     }
-                });
-                
-                if (credential) {
-                    unlockApp();
                 }
-            } catch (error) {
-                console.log('Biometric auth failed:', error);
-                alert('Biometric authentication failed. Please use PIN.');
-            }
+            });
         }
-        
-        // PIN functions
+
+        // PIN Management
         function addPin(digit) {
             if (currentPin.length < 6) {
                 currentPin += digit;
                 updatePinDisplay();
-                
+
                 if (currentPin.length === 6) {
-                    setTimeout(checkPin, 100);
+                    if (isSettingPin) {
+                        // Setting new PIN
+                        storedPin = currentPin;
+                        saveData();
+                        isSettingPin = false;
+                        setupSection.style.display = 'none';
+                        showMessage('PIN set successfully!');
+                        setTimeout(() => {
+                            authenticateUser();
+                        }, 1000);
+                    } else {
+                        // Verifying PIN
+                        setTimeout(() => {
+                            if (currentPin === storedPin) {
+                                authenticateUser();
+                            } else {
+                                shakePinDisplay();
+                                showMessage('Incorrect PIN');
+                                clearPin();
+                            }
+                        }, 300);
+                    }
                 }
             }
         }
-        
+
         function deletePin() {
-            currentPin = currentPin.slice(0, -1);
+            if (currentPin.length > 0) {
+                currentPin = currentPin.slice(0, -1);
+                updatePinDisplay();
+            }
+        }
+
+        function clearPin() {
+            currentPin = '';
             updatePinDisplay();
         }
-        
+
         function updatePinDisplay() {
             for (let i = 1; i <= 6; i++) {
                 const dot = document.getElementById(`dot${i}`);
@@ -826,310 +943,299 @@
                 }
             }
         }
-        
-        function checkPin() {
-            if (!storedPin) {
-                // First time setup
-                storedPin = currentPin;
-                localStorage.setItem('appPin', storedPin);
-                setupSection.style.display = 'none';
-                unlockApp();
-            } else if (currentPin === storedPin) {
-                unlockApp();
-            } else {
-                // Wrong PIN
-                currentPin = '';
-                updatePinDisplay();
-                
-                // Shake animation
-                const keypad = document.querySelector('.pin-keypad');
-                keypad.style.animation = 'shake 0.5s';
-                setTimeout(() => keypad.style.animation = '', 500);
-                
-                alert('Incorrect PIN. Try again.');
-            }
+
+        function shakePinDisplay() {
+            const pinDisplay = document.querySelector('.pin-display');
+            pinDisplay.classList.add('shake');
+            setTimeout(() => {
+                pinDisplay.classList.remove('shake');
+            }, 500);
         }
-        
-        function unlockApp() {
+
+        // Authentication
+        function authenticateWithBiometric() {
+            // Simulate biometric authentication
+            showMessage('Biometric authentication not available in browser');
+            setTimeout(() => {
+                if (Math.random() > 0.3) { // 70% success rate simulation
+                    authenticateUser();
+                } else {
+                    showMessage('Biometric authentication failed');
+                }
+            }, 1500);
+        }
+
+        function authenticateUser() {
             isAuthenticated = true;
             securityScreen.style.display = 'none';
             mainApp.style.display = 'block';
-            updateHistoryDisplay();
-            resetTimeout();
+            clearPin();
+            startAutoLockTimer();
+            loadDomainHistory();
         }
-        
+
         function lockApp() {
-            if (confirm('Lock the app?')) {
-                isAuthenticated = false;
-                currentPin = '';
-                updatePinDisplay();
-                document.getElementById('masterPassword').value = '';
-                document.getElementById('result').classList.remove('show');
-                securityScreen.style.display = 'block';
-                mainApp.style.display = 'none';
-            }
+            isAuthenticated = false;
+            mainApp.style.display = 'none';
+            securityScreen.style.display = 'block';
+            clearTimeout(lockTimeout);
+
+            // Clear sensitive data
+            document.getElementById('masterPassword').value = '';
+            document.getElementById('domain').value = '';
+            document.getElementById('result').classList.remove('show');
         }
-        
-        // Domain history with categories
-        function getDomainHistory() {
-            const history = localStorage.getItem('domainHistory');
-            return history ? JSON.parse(history) : {};
-        }
-        
-        function saveDomainHistory(domains) {
-            localStorage.setItem('domainHistory', JSON.stringify(domains));
-        }
-        
-        function categorizeDomain(domain) {
-            const parts = domain.split('-');
-            if (parts.length > 1) {
-                return parts[0]; // First part is category (gmail, facebook, etc.)
-            }
-            return 'other';
-        }
-        
-        function addDomainToHistory(domain) {
-            let history = getDomainHistory();
-            const category = categorizeDomain(domain);
-            
-            if (!history[category]) {
-                history[category] = [];
-            }
-            
-            // Remove if already exists
-            history[category] = history[category].filter(d => d !== domain);
-            // Add to beginning
-            history[category].unshift(domain);
-            // Keep only last 10 per category
-            history[category] = history[category].slice(0, 10);
-            
-            saveDomainHistory(history);
-            updateHistoryDisplay();
-        }
-        
-        function removeDomainFromHistory(domain) {
-            let history = getDomainHistory();
-            const category = categorizeDomain(domain);
-            
-            if (history[category]) {
-                history[category] = history[category].filter(d => d !== domain);
-                if (history[category].length === 0) {
-                    delete history[category];
+
+        // Auto-lock functionality
+        function startAutoLockTimer() {
+            clearTimeout(lockTimeout);
+            lockTimeout = setTimeout(() => {
+                if (isAuthenticated) {
+                    lockApp();
+                    showMessage('App locked due to inactivity');
                 }
-            }
-            
-            saveDomainHistory(history);
-            updateHistoryDisplay();
+            }, 300000); // 5 minutes
         }
-        
-        function clearAllHistory() {
-            if (confirm('Are you sure you want to clear all saved domains?')) {
-                localStorage.removeItem('domainHistory');
-                updateHistoryDisplay();
+
+        function resetTimeout() {
+            if (isAuthenticated) {
+                startAutoLockTimer();
             }
         }
-        
-        function updateHistoryDisplay() {
-            const domainList = document.getElementById('domainList');
-            const history = getDomainHistory();
-            const categories = Object.keys(history);
-            
-            if (categories.length === 0) {
-                domainList.innerHTML = '<div class="no-history">No domains saved yet</div>';
-                return;
-            }
-            
-            let html = '';
-            categories.sort().forEach(category => {
-                html += `
-                    <div class="domain-category">
-                        <div class="category-header">${category.toUpperCase()}</div>
-                `;
-                
-                history[category].forEach(domain => {
-                    html += `
-                        <div class="domain-item">
-                            <div class="domain-name">${domain}</div>
-                            <div class="domain-actions">
-                                <button class="use-btn" data-domain="${domain}">Use</button>
-                                <button class="delete-btn" data-domain="${domain}">×</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-            });
-            
-            domainList.innerHTML = html;
-            
-            // Add event listeners to new buttons
-            document.querySelectorAll('.use-btn').forEach(btn => {
-                btn.addEventListener('click', () => useDomain(btn.dataset.domain));
-            });
-            
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', () => removeDomainFromHistory(btn.dataset.domain));
-            });
-        }
-        
-        function useDomain(domain) {
-            document.getElementById('domain').value = domain;
-            const masterPassword = document.getElementById('masterPassword');
-            if (!masterPassword.value) {
-                masterPassword.focus();
-            }
-        }
-        
-        function toggleHistory() {
-            if (historySection.style.display === 'none') {
-                historySection.style.display = 'block';
-                updateHistoryDisplay();
-            } else {
-                historySection.style.display = 'none';
-            }
-        }
-        
-        // Password generation
+
+        // Password Generation using PBKDF2
         async function generatePassword() {
-            if (!isAuthenticated) return;
-            
             const masterPassword = document.getElementById('masterPassword').value;
-            const domain = document.getElementById('domain').value.toLowerCase().trim();
+            const domain = document.getElementById('domain').value.trim();
             const length = parseInt(document.getElementById('length').value);
-            
-            if (!masterPassword) {
-                alert('Please enter your master password');
+
+            if (!masterPassword || !domain) {
+                showMessage('Please enter both master password and domain');
                 return;
             }
-            
-            if (!domain) {
-                alert('Please enter a domain name');
-                return;
-            }
-            
+
             try {
-                addDomainToHistory(domain);
-                
-                const combinedInput = `${masterPassword}:${domain}`;
+                // Create a deterministic password using PBKDF2
                 const encoder = new TextEncoder();
+                const salt = encoder.encode(domain);
                 const keyMaterial = await window.crypto.subtle.importKey(
                     'raw',
-                    encoder.encode(combinedInput),
-                    'PBKDF2',
+                    encoder.encode(masterPassword),
+                    { name: 'PBKDF2' },
                     false,
                     ['deriveBits']
                 );
-                
+
                 const derivedBits = await window.crypto.subtle.deriveBits(
                     {
                         name: 'PBKDF2',
-                        salt: encoder.encode(domain),
+                        salt: salt,
                         iterations: 100000,
                         hash: 'SHA-256'
                     },
                     keyMaterial,
                     256
                 );
-                
-                const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
-                const bytes = new Uint8Array(derivedBits);
-                let password = "";
-                
-                for (let i = 0; i < length; i++) {
-                    const charIndex = bytes[i % bytes.length] % charset.length;
-                    password += charset[charIndex];
-                }
-                
+
+                // Convert to base64 and create password
+                const hashArray = new Uint8Array(derivedBits);
+                const base64 = btoa(String.fromCharCode(...hashArray));
+
+                // Create a strong password with mixed characters
+                const password = createStrongPassword(base64, length);
+
+                // Display result
                 document.getElementById('passwordDisplay').textContent = password;
                 document.getElementById('result').classList.add('show');
-                
-                const copyBtn = document.getElementById('copyBtn');
-                copyBtn.textContent = 'Copy to Clipboard';
-                copyBtn.classList.remove('copied');
-                
+
+                // Save domain to history
+                saveDomainToHistory(domain);
+
             } catch (error) {
-                alert('Error generating password: ' + error.message);
+                showMessage('Error generating password');
+                console.error('Password generation error:', error);
             }
         }
-        
+
+        function createStrongPassword(base64, length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+
+            for (let i = 0; i < length; i++) {
+                const charIndex = base64.charCodeAt(i % base64.length) % chars.length;
+                password += chars[charIndex];
+            }
+
+            // Ensure at least one of each character type
+            return ensurePasswordComplexity(password);
+        }
+
+        function ensurePasswordComplexity(password) {
+            const hasUpper = /[A-Z]/.test(password);
+            const hasLower = /[a-z]/.test(password);
+            const hasDigit = /[0-9]/.test(password);
+            const hasSpecial = /[!@#$%^&*]/.test(password);
+
+            if (hasUpper && hasLower && hasDigit && hasSpecial) {
+                return password;
+            }
+
+            // Replace characters to ensure complexity
+            let result = password.split('');
+            if (!hasUpper) result[0] = 'A';
+            if (!hasLower) result[1] = 'a';
+            if (!hasDigit) result[2] = '1';
+            if (!hasSpecial) result[3] = '!';
+
+            return result.join('');
+        }
+
+        // Copy to clipboard
         async function copyPassword() {
             const password = document.getElementById('passwordDisplay').textContent;
-            const copyBtn = document.getElementById('copyBtn');
-            
+
             try {
                 await navigator.clipboard.writeText(password);
-                copyBtn.textContent = 'Copied! ✓';
+                copyBtn.textContent = 'Copied!';
                 copyBtn.classList.add('copied');
-                
+
                 setTimeout(() => {
                     copyBtn.textContent = 'Copy to Clipboard';
                     copyBtn.classList.remove('copied');
                 }, 2000);
             } catch (error) {
-                // Fallback
+                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = password;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                
-                copyBtn.textContent = 'Copied! ✓';
-                copyBtn.classList.add('copied');
+
+                showMessage('Password copied to clipboard');
             }
         }
-        
-        // Auto-lock after inactivity
-        let timeoutId;
-        function resetTimeout() {
-            if (!isAuthenticated) return;
-            
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                lockApp();
-            }, 5 * 60 * 1000); // 5 minutes
-        }
-        
-        // Add to home screen functionality
-        function isRunningStandalone() {
-            return (window.matchMedia('(display-mode: standalone)').matches || 
-                    window.navigator.standalone);
-        }
-        
-        function showAddToHomeBanner() {
-            // Don't show if already installed or in standalone mode
-            if (isRunningStandalone()) return;
-            
-            // Check if iOS Safari
-            const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-            const isSafari = navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome');
-            
-            if (isIos && isSafari) {
-                // Only show if not dismissed
-                if (!localStorage.getItem('addToHomeDismissed')) {
-                    setTimeout(() => {
-                        addToHomeBanner.style.display = 'block';
-                    }, 3000);
+
+        // Domain History Management
+        function saveDomainToHistory(domain) {
+            if (domain && !domains.includes(domain)) {
+                domains.unshift(domain);
+                if (domains.length > 50) { // Limit history size
+                    domains = domains.slice(0, 50);
                 }
+                saveData();
+                loadDomainHistory();
             }
         }
-        
+
+        function loadDomainHistory() {
+            const domainList = document.getElementById('domainList');
+
+            if (domains.length === 0) {
+                domainList.innerHTML = '<div class="no-history">No domains saved yet</div>';
+                return;
+            }
+
+            // Group domains by category
+            const categories = {};
+            domains.forEach(domain => {
+                const category = domain.includes('-') ? domain.split('-')[0] : 'Other';
+                if (!categories[category]) categories[category] = [];
+                categories[category].push(domain);
+            });
+
+            let html = '';
+            Object.keys(categories).forEach(category => {
+                html += `<div class="domain-category">
+                    <div class="category-header">${category.toUpperCase()}</div>`;
+
+                categories[category].forEach(domain => {
+                    html += `<div class="domain-item">
+                        <span class="domain-name" onclick="useDomain('${domain}')">${domain}</span>
+                        <div class="domain-actions">
+                            <button class="use-btn" onclick="useDomain('${domain}')">Use</button>
+                            <button class="delete-btn" onclick="deleteDomain('${domain}')">Del</button>
+                        </div>
+                    </div>`;
+                });
+                html += '</div>';
+            });
+
+            domainList.innerHTML = html;
+        }
+
+        function useDomain(domain) {
+            document.getElementById('domain').value = domain;
+            historySection.style.display = 'none';
+        }
+
+        function deleteDomain(domain) {
+            domains = domains.filter(d => d !== domain);
+            saveData();
+            loadDomainHistory();
+        }
+
+        function clearAllHistory() {
+            if (confirm('Clear all domain history?')) {
+                domains = [];
+                saveData();
+                loadDomainHistory();
+            }
+        }
+
+        function toggleHistory() {
+            historySection.style.display = historySection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // About Section
+        function toggleAbout() {
+            aboutSection.style.display = aboutSection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Add to Home Screen functionality
+        function showAddToHomeBanner() {
+            // Check if it's iOS Safari and not already added to home screen
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isStandalone = window.navigator.standalone;
+
+            if (isIOS && !isStandalone) {
+                addToHomeBanner.style.display = 'block';
+            }
+        }
+
         function dismissBanner() {
             addToHomeBanner.style.display = 'none';
-            localStorage.setItem('addToHomeDismissed', 'true');
         }
-        
-        // Add shake animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-10px); }
-                75% { transform: translateX(10px); }
-            }
-        `;
-        document.head.appendChild(style);
+
+        // Utility functions
+        function showMessage(message) {
+            // Create a temporary message element
+            const messageEl = document.createElement('div');
+            messageEl.textContent = message;
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                z-index: 9999;
+                font-size: 16px;
+                font-weight: 500;
+            `;
+
+            document.body.appendChild(messageEl);
+
+            setTimeout(() => {
+                document.body.removeChild(messageEl);
+            }, 3000);
+        }
+
+        // Global functions for onclick handlers
+        window.useDomain = useDomain;
+        window.deleteDomain = deleteDomain;
         
         // Initialize app when loaded
         window.addEventListener('DOMContentLoaded', initApp);

@@ -85,6 +85,7 @@ MIT License - Free for personal and commercial use
 ![Lock Screen](./images/img_3.png)
 ![Password Generation](./images/img_1.png)
 ![History View](./images/img_2.png)
+![About Us](./images/img_5.png)
 
 ## About the Developer
 
