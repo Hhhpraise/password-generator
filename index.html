@@ -2,33 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- FIX: Prevent zooming on input/double-tap with enhanced settings -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <!-- SEO Meta Tags -->
     <title>SecurePass by hhhpraise | Password Generator Tool</title>
-    <meta name="description" content="Free online password generator by hhhpraise. Create strong, unique passwords with military-grade security. No data leaves your device.">
-    <meta name="keywords" content="password generator, secure password, password manager, online security, hhhpraise, strong password, password creator">
-    <meta name="author" content="hhhpraise">
 
-    <!-- Open Graph Tags for Social Sharing -->
-    <meta property="og:title" content="SecurePass by hhhpraise - Password Generator">
-    <meta property="og:description" content="Generate secure passwords with this free tool. Military-grade security with no data collection.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hhhpraise.github.io/password-generator/">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SecurePass by hhhpraise">
-    <meta name="twitter:description" content="Free password generator tool with advanced security features">
-
-    <!-- Enhanced iOS Integration -->
-    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC=">
-
-    <!-- iOS Shortcuts Support -->
-    <meta name="apple-itunes-app" content="app-id=shortcuts">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PHBhdGggZD0iTTE4IDhoLTFWNmMwLTIuNzYtMi4yNC01LTUtNVM3IDMuMjQgNyA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PHBhdGggZD0iTTE4IDhoLTFWNmMwLTIuNzYtMi4yNC01LTUtNVM3IDMuMjQgNyA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==">
 
     <style>
         * {
@@ -36,13 +17,11 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            /* Enhanced touch handling to prevent double-tap zoom */
             touch-action: manipulation;
             -ms-touch-action: manipulation;
         }
 
         html {
-            /* Prevent double-tap zoom on iOS */
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
             touch-action: manipulation;
@@ -50,7 +29,6 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            /* Changed to black background for better visual appeal */
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 20px;
@@ -60,7 +38,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Prevent overscroll bounce on iOS */
             overscroll-behavior: none;
             -webkit-overflow-scrolling: touch;
         }
@@ -73,7 +50,6 @@
             padding: 30px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-            /* Prevent double-tap zoom on container */
             touch-action: manipulation;
         }
 
@@ -207,7 +183,7 @@
             padding: 15px;
             border: 2px solid #e1e1e1;
             border-radius: 12px;
-            font-size: 16px; /* FIX: Prevent iOS zoom on input focus */
+            font-size: 16px;
             transition: all 0.3s ease;
             background: white;
             -webkit-user-select: text;
@@ -376,6 +352,15 @@
             padding: 8px 12px;
             background: rgba(102, 126, 234, 0.1);
             border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .category-header .caret {
+            font-size: 12px;
+            transition: transform 0.3s;
         }
 
         .domain-item {
@@ -387,6 +372,7 @@
             border-radius: 8px;
             margin-bottom: 8px;
             border: 1px solid #e2e8f0;
+            overflow: hidden;
         }
 
         .domain-name {
@@ -396,6 +382,10 @@
             color: #2d3748;
             cursor: pointer;
             touch-action: manipulation;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
         }
 
         .domain-name:active {
@@ -405,6 +395,7 @@
         .domain-actions {
             display: flex;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         .use-btn, .delete-btn {
@@ -452,7 +443,7 @@
             touch-action: manipulation;
         }
 
-        /* Quick Access Section - NEW */
+        /* Quick Access Section */
         .quick-access {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
@@ -500,7 +491,7 @@
             line-height: 1.4;
         }
 
-        /* Add to Home Screen Banner - Enhanced for iPhone */
+        /* Add to Home Screen Banner */
         #addToHomeBanner {
             display: none;
             position: fixed;
@@ -566,7 +557,6 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
-        /* Enhanced iPhone instructions */
         .ios-instructions {
             display: none;
             margin-top: 15px;
@@ -873,7 +863,7 @@
         ">Get Started</button>
     </div>
 
-    <!-- Add to Home Screen Banner - Enhanced -->
+    <!-- Add to Home Screen Banner -->
     <div id="addToHomeBanner">
         <div class="banner-content">
             <h3>📱 Install SecurePass</h3>
@@ -942,14 +932,14 @@
 
         <h1>🔐 SecurePass Gen</h1>
 
-        <!-- Quick Access Section - NEW -->
+        <!-- Quick Access Section -->
         <div class="quick-access">
             <h3>⚡ Quick Access</h3>
             <div class="shortcuts-grid">
-                <button class="shortcut-btn" onclick="fillQuickDomain('gmail')">📧 Gmail</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('facebook')">📘 Facebook</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('instagram')">📷 Instagram</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('X')">🐦 X</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('gmail-')">📧 Gmail</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('facebook-')">📘 Facebook</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('instagram-')">📷 Instagram</button>
+                <button class="shortcut-btn" onclick="fillQuickDomain('X-')">🐦 X</button>
             </div>
             <div class="ios-shortcut-info">
                 💡 <strong>iOS Tip:</strong> After installing to home screen, you can quickly switch to SecurePass when Safari prompts for passwords. Just double-tap home button or swipe up and tap SecurePass!
@@ -1055,7 +1045,7 @@
 
                 <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
 
-                <div class="version">v1.3.0 - Enhanced mobile quick access!</div>
+                <div class="version">v1.4.0 - Enhanced user experience</div>
 
                 <button class="close-about" id="closeAbout">Close</button>
             </div>
@@ -1071,7 +1061,8 @@
         let lockTimeout;
         let domains = [];
         let storageAvailable = false;
-        let domainPreferences = {}; // Store length preferences per domain
+        let domainPreferences = {};
+        let collapsedCategories = {};
 
         // Storage keys
         const STORAGE_KEYS = {
@@ -1104,129 +1095,33 @@
         const iosInstructions = document.getElementById('iosInstructions');
         const storageStatus = document.getElementById('storageStatus');
 
-        // Enhanced mobile event handling to prevent double-tap zoom
-        function preventDoubleClickZoom(element) {
-            let lastTouchEnd = 0;
-            element.addEventListener('touchend', function (event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-        }
-
-        // Quick domain filling - NEW FEATURE
-        function fillQuickDomain(service) {
-            const domainInput = document.getElementById('domain');
-            const currentDomain = domainInput.value.toLowerCase();
-
-            // Smart domain suggestion based on current context
-            if (currentDomain.includes(service)) {
-                // If service already in domain, suggest variations
-                domainInput.value = `${service}-main`;
-            } else if (currentDomain) {
-                // If there's already text, append service
-                domainInput.value = `${service}-${currentDomain}`;
-            } else {
-                // Default suggestion
-                domainInput.value = `${service}-personal`;
-            }
-
-            // Focus on master password if empty, otherwise generate
-            const masterPassword = document.getElementById('masterPassword');
-            if (!masterPassword.value) {
-                masterPassword.focus();
-                showMessage(`Enter master password to generate ${service} password`);
-            } else {
-                generatePassword();
-            }
-        }
-
-        // URL parameter handling for quick access - NEW FEATURE
-        function handleURLParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const domain = urlParams.get('domain');
-            const service = urlParams.get('service');
-
-            if (domain) {
-                document.getElementById('domain').value = decodeURIComponent(domain);
-                showMessage(`Pre-filled domain: ${domain}`);
-            } else if (service) {
-                fillQuickDomain(service);
-            }
-        }
-
         // Initialize app
         function initApp() {
-            // Check localStorage availability
             checkStorageAvailability();
-
-            // Load stored data
             loadStoredData();
-
-            // Handle URL parameters for quick access
             handleURLParams();
-
-            // Apply double-tap zoom prevention to key elements
-            const elementsToProtect = [
-                document.body,
-                ...document.querySelectorAll('button'),
-                ...document.querySelectorAll('input'),
-                ...document.querySelectorAll('.domain-name')
-            ];
-
-            elementsToProtect.forEach(preventDoubleClickZoom);
+            setupEventListeners();
+            updateStorageStatus();
+            setTimeout(showAddToHomeBanner, 3000);
+            registerServiceWorker();
 
             document.getElementById('startBtn').addEventListener('click', () => {
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
-
-                    // Check if PIN is set up
                     if (!storedPin) {
                         setupSection.style.display = 'block';
                         isSettingPin = true;
                     }
-
                     securityScreen.style.display = 'block';
                 }, 500);
             });
-
-            // Set up event listeners
-            setupEventListeners();
-
-            // Update storage status
-            updateStorageStatus();
-
-            // Check if we should show add to home banner
-            setTimeout(showAddToHomeBanner, 3000);
-
-            // Register service worker for enhanced PWA experience
-            registerServiceWorker();
         }
 
-        // Service Worker registration for better PWA experience - NEW
+        // Service Worker registration
         function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
-                // Create a simple service worker inline
-                const swCode = `
-                    self.addEventListener('fetch', event => {
-                        // Cache-first strategy for offline support
-                        if (event.request.url.includes('securepass')) {
-                            event.respondWith(
-                                caches.match(event.request)
-                                    .then(response => response || fetch(event.request))
-                            );
-                        }
-                    });
-                `;
-
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-
-                navigator.serviceWorker.register(swUrl)
-                    .then(() => console.log('SW registered for offline support'))
+                navigator.serviceWorker.register('sw.js')
                     .catch(() => console.log('SW registration failed'));
             }
         }
@@ -1240,7 +1135,6 @@
                 storageAvailable = true;
             } catch (e) {
                 storageAvailable = false;
-                console.warn('localStorage is not available. Domain history will not persist.');
             }
         }
 
@@ -1255,11 +1149,9 @@
                     domains = storedDomains ? JSON.parse(storedDomains) : [];
                     domainPreferences = storedPreferences ? JSON.parse(storedPreferences) : {};
 
-                    // Validate domains array and migrate old format
                     if (!Array.isArray(domains)) {
                         domains = [];
                     } else {
-                        // Migrate old string format to new object format with proper normalization
                         domains = domains.map(domain => {
                             if (typeof domain === 'string') {
                                 return {
@@ -1268,7 +1160,6 @@
                                     timestamp: Date.now()
                                 };
                             }
-                            // Re-normalize existing objects to ensure consistency
                             return {
                                 ...domain,
                                 normalized: normalizeDomainName(domain.display || domain.normalized || '')
@@ -1276,18 +1167,15 @@
                         });
                     }
 
-                    // Validate domain preferences object
                     if (typeof domainPreferences !== 'object' || domainPreferences === null) {
                         domainPreferences = {};
                     }
                 } catch (error) {
-                    console.error('Error loading stored data:', error);
                     domains = [];
                     storedPin = '';
                     domainPreferences = {};
                 }
             } else {
-                // Fallback to in-memory storage
                 storedPin = '';
                 domains = [];
                 domainPreferences = {};
@@ -1303,7 +1191,6 @@
                     localStorage.setItem(STORAGE_KEYS.DOMAIN_PREFERENCES, JSON.stringify(domainPreferences));
                     updateStorageStatus('success');
                 } catch (error) {
-                    console.error('Error saving data:', error);
                     updateStorageStatus('error');
                 }
             }
@@ -1316,9 +1203,7 @@
             if (status === 'success') {
                 storageStatus.textContent = '✓ Data saved successfully';
                 storageStatus.className = 'storage-status success';
-                setTimeout(() => {
-                    updateStorageStatus();
-                }, 2000);
+                setTimeout(() => updateStorageStatus(), 2000);
             } else if (status === 'error') {
                 storageStatus.textContent = '⚠ Error saving data';
                 storageStatus.className = 'storage-status error';
@@ -1336,11 +1221,7 @@
 
         // Set up event listeners
         function setupEventListeners() {
-            // PIN keypad
-            pinKeys.forEach(key => {
-                key.addEventListener('click', () => addPin(key.dataset.key));
-            });
-
+            pinKeys.forEach(key => key.addEventListener('click', () => addPin(key.dataset.key)));
             deletePinBtn.addEventListener('click', deletePin);
             biometricBtn.addEventListener('click', authenticateWithBiometric);
             lockBtn.addEventListener('click', lockApp);
@@ -1353,12 +1234,10 @@
             dismissBannerBtn.addEventListener('click', dismissBanner);
             showInstructionsBtn.addEventListener('click', showInstallInstructions);
 
-            // Auto-lock events
             document.addEventListener('keypress', resetTimeout);
             document.addEventListener('touchstart', resetTimeout);
             document.addEventListener('click', resetTimeout);
 
-            // Enter key support
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     if (document.getElementById('masterPassword') === document.activeElement ||
@@ -1369,6 +1248,28 @@
             });
         }
 
+        // Quick domain filling
+        function fillQuickDomain(prefix) {
+            const domainInput = document.getElementById('domain');
+            domainInput.value = prefix;
+            document.getElementById('masterPassword').focus();
+            showMessage(`Domain set to "${prefix}" - enter master password`);
+        }
+
+        // Handle URL parameters for quick access
+        function handleURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const domain = urlParams.get('domain');
+            const service = urlParams.get('service');
+
+            if (domain) {
+                document.getElementById('domain').value = decodeURIComponent(domain);
+                showMessage(`Pre-filled domain: ${domain}`);
+            } else if (service) {
+                fillQuickDomain(`${service}-`);
+            }
+        }
+
         // PIN Management
         function addPin(digit) {
             if (currentPin.length < 6) {
@@ -1377,17 +1278,13 @@
 
                 if (currentPin.length === 6) {
                     if (isSettingPin) {
-                        // Setting new PIN
                         storedPin = currentPin;
                         saveData();
                         isSettingPin = false;
                         setupSection.style.display = 'none';
                         showMessage('PIN set successfully!');
-                        setTimeout(() => {
-                            authenticateUser();
-                        }, 1000);
+                        setTimeout(() => authenticateUser(), 1000);
                     } else {
-                        // Verifying PIN
                         setTimeout(() => {
                             if (currentPin === storedPin) {
                                 authenticateUser();
@@ -1428,31 +1325,24 @@
         function shakePinDisplay() {
             const pinDisplay = document.querySelector('.pin-display');
             pinDisplay.classList.add('shake');
-            setTimeout(() => {
-                pinDisplay.classList.remove('shake');
-            }, 500);
+            setTimeout(() => pinDisplay.classList.remove('shake'), 500);
         }
 
-        // Enhanced Biometric Authentication
+        // Biometric Authentication
         async function authenticateWithBiometric() {
             try {
-                // Check if WebAuthn is supported
                 if (!window.PublicKeyCredential) {
                     showMessage('Biometric authentication not supported on this device');
                     return;
                 }
 
-                // Check if biometric authentication is available
                 const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-
                 if (!available) {
                     showMessage('No biometric sensors detected on this device');
                     return;
                 }
 
                 showMessage('Place your finger on the sensor or look at the camera...');
-
-                // Create a simple authentication challenge
                 const challenge = new Uint8Array(32);
                 window.crypto.getRandomValues(challenge);
 
@@ -1460,66 +1350,22 @@
                     challenge: challenge,
                     timeout: 30000,
                     userVerification: 'required',
-                    allowCredentials: [] // Allow any credential
+                    allowCredentials: []
                 };
 
                 try {
-                    // Attempt biometric authentication
                     const credential = await navigator.credentials.get({
                         publicKey: publicKeyCredentialRequestOptions
                     });
 
                     if (credential) {
                         showMessage('Biometric authentication successful!');
-                        setTimeout(() => {
-                            authenticateUser();
-                        }, 1000);
+                        setTimeout(() => authenticateUser(), 1000);
                     }
                 } catch (authError) {
-                    // If no credentials exist, create a new one for future use
-                    if (authError.name === 'NotAllowedError' || authError.name === 'InvalidStateError') {
-                        try {
-                            const publicKeyCredentialCreationOptions = {
-                                challenge: challenge,
-                                rp: {
-                                    name: "SecurePass",
-                                    id: window.location.hostname
-                                },
-                                user: {
-                                    id: new TextEncoder().encode("securepass-user"),
-                                    name: "securepass-user",
-                                    displayName: "SecurePass User"
-                                },
-                                pubKeyCredParams: [{alg: -7, type: "public-key"}],
-                                authenticatorSelection: {
-                                    authenticatorAttachment: "platform",
-                                    userVerification: "required"
-                                },
-                                timeout: 30000,
-                                attestation: "direct"
-                            };
-
-                            const newCredential = await navigator.credentials.create({
-                                publicKey: publicKeyCredentialCreationOptions
-                            });
-
-                            if (newCredential) {
-                                showMessage('Biometric setup complete! Authentication successful.');
-                                setTimeout(() => {
-                                    authenticateUser();
-                                }, 1000);
-                            }
-                        } catch (createError) {
-                            console.log('Biometric setup failed:', createError);
-                            showMessage('Biometric authentication canceled or failed');
-                        }
-                    } else {
-                        console.log('Biometric auth error:', authError);
-                        showMessage('Biometric authentication failed. Please try again.');
-                    }
+                    showMessage('Biometric authentication failed. Please try PIN.');
                 }
             } catch (error) {
-                console.error('Biometric authentication error:', error);
                 showMessage('Biometric authentication not available. Please use PIN.');
             }
         }
@@ -1539,8 +1385,6 @@
             mainApp.style.display = 'none';
             securityScreen.style.display = 'block';
             clearTimeout(lockTimeout);
-
-            // Clear sensitive data
             document.getElementById('masterPassword').value = '';
             document.getElementById('domain').value = '';
             document.getElementById('result').classList.remove('show');
@@ -1550,32 +1394,27 @@
         function startAutoLockTimer() {
             clearTimeout(lockTimeout);
             lockTimeout = setTimeout(() => {
-                if (isAuthenticated) {
-                    lockApp();
-                    showMessage('App locked due to inactivity');
-                }
-            }, 60000); // 1 minutes
+                if (isAuthenticated) lockApp();
+            }, 60000);
         }
 
         function resetTimeout() {
-            if (isAuthenticated) {
-                startAutoLockTimer();
-            }
+            if (isAuthenticated) startAutoLockTimer();
         }
 
-        // Domain normalization function for consistent password generation
+        // Domain normalization
         function normalizeDomainName(domain) {
             return domain
-                .toLowerCase()                    // Convert to lowercase
-                .trim()                          // Remove leading/trailing spaces
-                .replace(/\s+/g, '')             // Remove all spaces (including multiple spaces)
-                .replace(/[-_]+/g, '-')          // Normalize separators (convert underscores to hyphens, collapse multiple)
-                .replace(/[^\w-]/g, '')          // Remove special characters except word chars and hyphens
-                .replace(/^-+|-+$/g, '')         // Remove leading/trailing hyphens
-                .replace(/-+/g, '-');            // Collapse multiple consecutive hyphens to single
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, '')
+                .replace(/[-_]+/g, '-')
+                .replace(/[^\w-]/g, '')
+                .replace(/^-+|-+$/g, '')
+                .replace(/-+/g, '-');
         }
 
-        // Password Generation using PBKDF2 - FIXED for consistent case and whitespace handling
+        // Password Generation
         async function generatePassword() {
             const masterPassword = document.getElementById('masterPassword').value;
             let domain = document.getElementById('domain').value.trim();
@@ -1586,17 +1425,13 @@
                 return;
             }
 
-            // CRITICAL FIX: Normalize domain for consistent password generation
             const normalizedDomain = normalizeDomainName(domain);
+            domainPreferences[normalizedDomain] = length;
+            saveData();
 
             try {
-                // Save the length preference for this domain
-                domainPreferences[normalizedDomain] = length;
-                saveData();
-
-                // Create a deterministic password using PBKDF2 with normalized domain
                 const encoder = new TextEncoder();
-                const salt = encoder.encode(normalizedDomain); // Use normalized domain as salt
+                const salt = encoder.encode(normalizedDomain);
                 const keyMaterial = await window.crypto.subtle.importKey(
                     'raw',
                     encoder.encode(masterPassword),
@@ -1616,28 +1451,16 @@
                     256
                 );
 
-                // Convert to base64 and create password
                 const hashArray = new Uint8Array(derivedBits);
                 const base64 = btoa(String.fromCharCode(...hashArray));
-
-                // Create a strong password with mixed characters
                 const password = createStrongPassword(base64, length);
 
-                // Display result
                 document.getElementById('passwordDisplay').textContent = password;
                 document.getElementById('result').classList.add('show');
-
-                // Save domain to history (store both original case for display and normalized for generation)
                 saveDomainToHistory(domain, normalizedDomain);
-
-                // Provide quick copy tip for mobile users
-                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                    showMessage('Password generated! Tap "Copy" then switch back to Safari to paste.');
-                }
-
+                showMessage('Password generated! Tap "Copy" to copy to clipboard.');
             } catch (error) {
                 showMessage('Error generating password');
-                console.error('Password generation error:', error);
             }
         }
 
@@ -1650,7 +1473,6 @@
                 password += chars[charIndex];
             }
 
-            // Ensure at least one of each character type
             return ensurePasswordComplexity(password);
         }
 
@@ -1664,7 +1486,6 @@
                 return password;
             }
 
-            // Replace characters to ensure complexity
             let result = password.split('');
             if (!hasUpper) result[0] = 'A';
             if (!hasLower) result[1] = 'a';
@@ -1674,7 +1495,7 @@
             return result.join('');
         }
 
-        // Copy to clipboard with enhanced mobile feedback
+        // Copy to clipboard
         async function copyPassword() {
             const password = document.getElementById('passwordDisplay').textContent;
 
@@ -1682,54 +1503,39 @@
                 await navigator.clipboard.writeText(password);
                 copyBtn.textContent = 'Copied! ✓';
                 copyBtn.classList.add('copied');
-
-                // Enhanced feedback for mobile users
-                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                    showMessage('Password copied! You can now switch back to Safari and paste it.');
-                }
-
+                showMessage('Password copied to clipboard!');
                 setTimeout(() => {
                     copyBtn.textContent = 'Copy to Clipboard';
                     copyBtn.classList.remove('copied');
                 }, 3000);
             } catch (error) {
-                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = password;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-
                 showMessage('Password copied to clipboard');
             }
         }
 
-        // Domain History Management - FIXED for consistent normalization
+        // Domain History Management
         function saveDomainToHistory(originalDomain, normalizedDomain) {
             if (!originalDomain) return;
 
-            // Re-normalize to ensure consistency with the new normalization function
             const properlyNormalized = normalizeDomainName(originalDomain);
-
-            // Remove any existing domain with the same normalized name
             domains = domains.filter(d => {
                 const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
                 return existingNormalized !== properlyNormalized;
             });
 
-            // Add new domain object with both display and normalized versions
             domains.unshift({
-                display: originalDomain.trim(), // Keep original case but trim whitespace
-                normalized: properlyNormalized, // Store properly normalized version
+                display: originalDomain.trim(),
+                normalized: properlyNormalized,
                 timestamp: Date.now()
             });
 
-            // Limit history size
-            if (domains.length > 100) {
-                domains = domains.slice(0, 100);
-            }
-
+            if (domains.length > 100) domains = domains.slice(0, 100);
             saveData();
             loadDomainHistory();
             updateStorageStatus();
@@ -1743,13 +1549,10 @@
                 return;
             }
 
-            // Group domains by category based on normalized names
             const categories = {};
             domains.forEach(domainObj => {
-                // Handle both old string format and new object format
                 const displayName = typeof domainObj === 'object' ? domainObj.display : domainObj;
                 const normalizedName = typeof domainObj === 'object' ? domainObj.normalized : normalizeDomainName(domainObj);
-
                 const category = normalizedName.includes('-') ? normalizedName.split('-')[0] : 'Other';
 
                 if (!categories[category]) categories[category] = [];
@@ -1761,11 +1564,15 @@
 
             let html = '';
             Object.keys(categories).forEach(category => {
+                const isCollapsed = collapsedCategories[category];
                 html += `<div class="domain-category">
-                    <div class="category-header">${category.toUpperCase()}</div>`;
+                    <div class="category-header" onclick="toggleCategoryVisibility('${category}')">
+                        ${category.toUpperCase()}
+                        <span class="caret">${isCollapsed ? '▶' : '▼'}</span>
+                    </div>
+                    <div class="category-domains" id="category-${category}" style="display: ${isCollapsed ? 'none' : 'block'};">`;
 
                 categories[category].forEach(domain => {
-                    // Check if this domain has a saved length preference
                     const hasPreference = domainPreferences[domain.normalized];
                     const preferenceText = hasPreference ? ` (${hasPreference}ch)` : '';
 
@@ -1779,52 +1586,49 @@
                         </div>
                     </div>`;
                 });
-                html += '</div>';
+                html += '</div></div>';
             });
 
             domainList.innerHTML = html;
         }
 
-        // FIXED: Use original case for display, but ensure consistent generation and restore preferences
-        function useDomain(displayDomain) {
-            document.getElementById('domain').value = displayDomain;
+        function toggleCategoryVisibility(category) {
+            collapsedCategories[category] = !collapsedCategories[category];
+            const categoryDomains = document.getElementById(`category-${category}`);
+            const caret = document.querySelector(`#category-${category}`).previousElementSibling.querySelector('.caret');
 
-            // Get the normalized domain to check for saved preferences
-            const normalizedDomain = normalizeDomainName(displayDomain);
-
-            // Restore the previously used length for this domain
-            if (domainPreferences[normalizedDomain]) {
-                const lengthSelect = document.getElementById('length');
-                lengthSelect.value = domainPreferences[normalizedDomain];
-
-                // Visual feedback to show the length was restored
-                lengthSelect.style.backgroundColor = '#e6fffa';
-                setTimeout(() => {
-                    lengthSelect.style.backgroundColor = '';
-                }, 1000);
-
-                showMessage(`Restored ${domainPreferences[normalizedDomain]}-character length for this domain`);
-            }
-
-            historySection.style.display = 'none';
-
-            // Focus on master password if empty
-            const masterPassword = document.getElementById('masterPassword');
-            if (!masterPassword.value) {
-                masterPassword.focus();
+            if (collapsedCategories[category]) {
+                categoryDomains.style.display = 'none';
+                caret.textContent = '▶';
+            } else {
+                categoryDomains.style.display = 'block';
+                caret.textContent = '▼';
             }
         }
 
-        // FIXED: Delete based on normalized name for consistency and clean up preferences
+        function useDomain(displayDomain) {
+            document.getElementById('domain').value = displayDomain;
+            const normalizedDomain = normalizeDomainName(displayDomain);
+
+            if (domainPreferences[normalizedDomain]) {
+                const lengthSelect = document.getElementById('length');
+                lengthSelect.value = domainPreferences[normalizedDomain];
+                lengthSelect.style.backgroundColor = '#e6fffa';
+                setTimeout(() => lengthSelect.style.backgroundColor = '', 1000);
+                showMessage(`Restored ${domainPreferences[normalizedDomain]}-character length`);
+            }
+
+            historySection.style.display = 'none';
+            document.getElementById('masterPassword').focus();
+        }
+
         function deleteDomain(normalizedDomain) {
             domains = domains.filter(d => {
                 const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
                 return existingNormalized !== normalizedDomain;
             });
 
-            // Also remove the length preference for this domain
             delete domainPreferences[normalizedDomain];
-
             saveData();
             loadDomainHistory();
             updateStorageStatus();
@@ -1833,7 +1637,7 @@
         function clearAllHistory() {
             if (confirm('Clear all domain history? This action cannot be undone.')) {
                 domains = [];
-                domainPreferences = {}; // Also clear length preferences
+                domainPreferences = {};
                 saveData();
                 loadDomainHistory();
                 updateStorageStatus();
@@ -1844,30 +1648,32 @@
         function toggleHistory() {
             const isVisible = historySection.style.display !== 'none';
             historySection.style.display = isVisible ? 'none' : 'block';
+
             if (!isVisible) {
                 updateStorageStatus();
+                setTimeout(() => historySection.scrollIntoView({ behavior: 'smooth' }), 100);
             }
         }
 
         // About Section
         function toggleAbout() {
-            aboutSection.style.display = aboutSection.style.display === 'none' ? 'block' : 'none';
+            const isVisible = aboutSection.style.display !== 'none';
+            aboutSection.style.display = isVisible ? 'none' : 'block';
+
+            if (!isVisible) {
+                setTimeout(() => aboutSection.scrollIntoView({ behavior: 'smooth' }), 100);
+            }
         }
 
-        // Add to Home Screen functionality - Enhanced for iPhone
+        // Add to Home Screen functionality
         function showAddToHomeBanner() {
-            // Check if it's iOS Safari and not already added to home screen
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             const isStandalone = window.navigator.standalone;
             const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
-            // Only show on iOS Safari when not in standalone mode
             if (isIOS && isSafari && !isStandalone) {
-                // Check if user hasn't dismissed it before
                 const dismissed = localStorage.getItem('addToHomeDismissed');
-                if (!dismissed) {
-                    addToHomeBanner.style.display = 'block';
-                }
+                if (!dismissed) addToHomeBanner.style.display = 'block';
             }
         }
 
@@ -1878,15 +1684,11 @@
 
         function dismissBanner() {
             addToHomeBanner.style.display = 'none';
-            // Remember user's choice
-            if (storageAvailable) {
-                localStorage.setItem('addToHomeDismissed', 'true');
-            }
+            if (storageAvailable) localStorage.setItem('addToHomeDismissed', 'true');
         }
 
         // Utility functions
         function showMessage(message) {
-            // Create a temporary message element
             const messageEl = document.createElement('div');
             messageEl.textContent = message;
             messageEl.style.cssText = `
@@ -1906,23 +1708,19 @@
             `;
 
             document.body.appendChild(messageEl);
-
-            setTimeout(() => {
-                if (document.body.contains(messageEl)) {
-                    document.body.removeChild(messageEl);
-                }
-            }, 3000);
+            setTimeout(() => document.body.removeChild(messageEl), 3000);
         }
 
         // Global functions for onclick handlers
         window.useDomain = useDomain;
         window.deleteDomain = deleteDomain;
         window.fillQuickDomain = fillQuickDomain;
+        window.toggleCategoryVisibility = toggleCategoryVisibility;
 
         // Initialize app when loaded
         window.addEventListener('DOMContentLoaded', initApp);
 
-        // Handle storage events (when localStorage is modified in another tab)
+        // Handle storage events
         window.addEventListener('storage', function(e) {
             if (e.key === STORAGE_KEYS.DOMAINS) {
                 loadStoredData();
@@ -1935,31 +1733,21 @@
 
         // Clean up on page unload
         window.addEventListener('beforeunload', function() {
-            // Clear sensitive data from memory
             currentPin = '';
-            if (lockTimeout) {
-                clearTimeout(lockTimeout);
-            }
+            if (lockTimeout) clearTimeout(lockTimeout);
         });
 
-        // Enhanced visibility change handling for better mobile experience
+        // Enhanced visibility change handling
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) {
-                // App is going to background - start shorter timeout for mobile context switching
                 if (isAuthenticated) {
                     clearTimeout(lockTimeout);
                     lockTimeout = setTimeout(() => {
-                        if (isAuthenticated && !document.hidden) {
-                            lockApp();
-                            showMessage('App locked after background time');
-                        }
-                    }, 120000); // 2 minutes when in background
+                        if (isAuthenticated && !document.hidden) lockApp();
+                    }, 120000);
                 }
             } else {
-                // App is coming to foreground - reset to normal timeout
-                if (isAuthenticated) {
-                    startAutoLockTimer();
-                }
+                if (isAuthenticated) startAutoLockTimer();
             }
         });
     </script>
