@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="SecurePass by hhhpraise">
     <meta name="twitter:description" content="Free password generator tool with advanced security features">
 
-    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw=">
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOESURBVHic7Z0/aBRBFMafJBqwsLGwsLBQsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCw=">
     <style>
         * {
             margin: 0;
@@ -593,6 +593,27 @@
             font-size: 14px;
         }
 
+        /* Storage status indicator */
+        .storage-status {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 6px;
+        }
+
+        .storage-status.error {
+            color: #e53e3e;
+            background: rgba(229, 62, 62, 0.05);
+        }
+
+        .storage-status.success {
+            color: #48bb78;
+            background: rgba(72, 187, 120, 0.05);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -728,13 +749,15 @@
             <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
         </div>
 
-        <div class="tips">
+                <div class="tips">
             <h3>💡 Tips:</h3>
             <ul>
                 <li>Organize by service: gmail-personal, gmail-work, gmail-shopping</li>
                 <li>Use categories: work-slack, work-github, work-jira</li>
                 <li>Banking: chase-checking, wells-savings</li>
                 <li>Social: facebook-main, instagram-art, twitter-personal</li>
+                <li><strong>Spaces are ignored:</strong> "gmail - work" = "gmail-work"</li>
+                <li><strong>Case doesn't matter:</strong> "Gmail-Work" = "gmail-work"</li>
             </ul>
         </div>
 
@@ -745,6 +768,7 @@
                 <h3>📁 Saved Domains</h3>
                 <button class="clear-all-btn" id="clearHistoryBtn">Clear All</button>
             </div>
+            <div class="storage-status" id="storageStatus"></div>
             <div class="domain-list" id="domainList">
                 <div class="no-history">No domains saved yet</div>
             </div>
@@ -766,17 +790,18 @@
                     <li>⚡ <strong>Offline-First</strong> - Works without internet.</li>
                     <li>📱 <strong>PWA Support</strong> - Install as an app.</li>
                     <li>🔢 <strong>Deterministic Generation</strong> - Same input = same password.</li>
+                    <li>💾 <strong>Persistent Storage</strong> - Domain history saved locally.</li>
                 </ul>
 
                 <h3>How It Works:</h3>
-                <p>Your master password + domain name are hashed using <strong>PBKDF2 with 100,000 iterations</strong> to generate a unique password. No storage needed!</p>
+                <p>Your master password + domain name are hashed using <strong>PBKDF2 with 100,000 iterations</strong> to generate a unique password. Domain history is stored locally in your browser.</p>
 
                 <h3>Author:</h3>
                 <p>Created by <strong>hhhpraise</strong> - A developer passionate about privacy and security.</p>
 
                 <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
 
-                <div class="version">v1.0.0</div>
+                <div class="version">v1.1.0 - Now with persistent storage!</div>
 
                 <button class="close-about" id="closeAbout">Close</button>
             </div>
@@ -791,6 +816,14 @@
         let isSettingPin = false;
         let lockTimeout;
         let domains = [];
+        let storageAvailable = false;
+
+        // Storage keys
+        const STORAGE_KEYS = {
+            PIN: 'securepass_pin',
+            DOMAINS: 'securepass_domains',
+            SETTINGS: 'securepass_settings'
+        };
 
         // DOM Elements
         const loadingScreen = document.getElementById('loadingScreen');
@@ -811,10 +844,14 @@
         const closeAboutBtn = document.getElementById('closeAbout');
         const addToHomeBanner = document.getElementById('addToHomeBanner');
         const dismissBannerBtn = document.getElementById('dismissBanner');
+        const storageStatus = document.getElementById('storageStatus');
 
         // Initialize app
         function initApp() {
-            // Load stored data using in-memory storage instead of localStorage
+            // Check localStorage availability
+            checkStorageAvailability();
+
+            // Load stored data
             loadStoredData();
 
             document.getElementById('startBtn').addEventListener('click', () => {
@@ -835,23 +872,167 @@
             // Set up event listeners
             setupEventListeners();
 
+            // Update storage status
+            updateStorageStatus();
+
             // Check if we should show add to home banner
             setTimeout(showAddToHomeBanner, 3000);
         }
 
-        // Load stored data (using in-memory storage)
-        function loadStoredData() {
-            // In a real app, you'd use localStorage, but we'll simulate with variables
-            // storedPin = localStorage.getItem('appPin') || '';
-            // domains = JSON.parse(localStorage.getItem('domains') || '[]');
-            storedPin = '';
-            domains = [];
+        // Check if localStorage is available
+        function checkStorageAvailability() {
+            try {
+                const test = '__localStorage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                storageAvailable = true;
+            } catch (e) {
+                storageAvailable = false;
+                console.warn('localStorage is not available. Domain history will not persist.');
+            }
         }
 
-        // Save data (simulated)
+        // Load stored data from localStorage
+        function loadStoredData() {
+            if (storageAvailable) {
+                try {
+                    storedPin = localStorage.getItem(STORAGE_KEYS.PIN) || '';
+                    const storedDomains = localStorage.getItem(STORAGE_KEYS.DOMAINS);
+                    domains = storedDomains ? JSON.parse(storedDomains) : [];
+
+                    // Validate domains array and migrate old format
+                    if (!Array.isArray(domains)) {
+                        domains = [];
+                    } else {
+                        // Migrate old string format to new object format with proper normalization
+                        domains = domains.map(domain => {
+                            if (typeof domain === 'string') {
+                                return {
+                                    display: domain.trim(),
+                                    normalized: normalizeDomainName(domain),
+                                    timestamp: Date.now()
+                                };
+                            }
+                            // Re-normalize existing objects to ensure consistency
+                            return {
+                                ...domain,
+                                normalized: normalizeDomainName(domain.display || domain.normalized || '')
+                            };
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error loading stored data:', error);
+                    domains = [];
+                    storedPin = '';
+                }
+            } else {
+                // Fallback to in-memory storage
+                storedPin = '';
+                domains = [];
+            }
+        }
+
+        // Save data to localStorage
         function saveData() {
-            // In a real app: localStorage.setItem('appPin', storedPin);
-            // localStorage.setItem('domains', JSON.stringify(domains));
+            if (storageAvailable) {
+                try {
+                    localStorage.setItem(STORAGE_KEYS.PIN, storedPin);
+                    localStorage.setItem(STORAGE_KEYS.DOMAINS, JSON.stringify(domains));
+                    updateStorageStatus('success');
+                } catch (error) {
+                    console.error('Error saving data:', error);
+                    updateStorageStatus('error');
+                }
+            }
+        }
+
+        // Update storage status indicator
+        function updateStorageStatus(status = null) {
+            if (!storageStatus) return;
+
+            if (status === 'success') {
+                storageStatus.textContent = '✓ Data saved successfully';
+                storageStatus.className = 'storage-status success';
+                setTimeout(() => {
+                    updateStorageStatus();
+                }, 2000);
+            } else if (status === 'error') {
+                storageStatus.textContent = '⚠ Error saving data';
+                storageStatus.className = 'storage-status error';
+            } else {
+                if (storageAvailable) {
+                    const domainsCount = domains.length;
+                    storageStatus.textContent = `💾 ${domainsCount} domains stored locally`;
+                    storageStatus.className = 'storage-status';
+                } else {
+                    storageStatus.textContent = '⚠ Storage unavailable - history won\'t persist';
+                    storageStatus.className = 'storage-status error';
+                }
+            }
+        }
+
+        // Export/Import functionality
+        function exportDomains() {
+            if (domains.length === 0) {
+                showMessage('No domains to export');
+                return;
+            }
+
+            const data = {
+                domains: domains,
+                exportDate: new Date().toISOString(),
+                version: '1.1.0'
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `securepass-domains-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showMessage('Domains exported successfully');
+        }
+
+        function importDomains(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+
+                    if (data.domains && Array.isArray(data.domains)) {
+                        // Merge with existing domains, avoiding duplicates based on normalized names
+                        const existingNormalized = domains.map(d => d.normalized || normalizeDomainName(d.display || d));
+                        const newDomains = data.domains.filter(domain => {
+                            const normalized = typeof domain === 'object' ? domain.normalized : normalizeDomainName(domain);
+                            return !existingNormalized.includes(normalized);
+                        });
+
+                        domains = [...domains, ...newDomains];
+
+                        // Limit total domains
+                        if (domains.length > 100) {
+                            domains = domains.slice(0, 100);
+                        }
+
+                        saveData();
+                        loadDomainHistory();
+                        showMessage(`Imported ${newDomains.length} new domains`);
+                    } else {
+                        showMessage('Invalid file format');
+                    }
+                } catch (error) {
+                    showMessage('Error reading file');
+                    console.error('Import error:', error);
+                }
+            };
+            reader.readAsText(file);
         }
 
         // Set up event listeners
@@ -883,6 +1064,17 @@
                     if (document.getElementById('masterPassword') === document.activeElement ||
                         document.getElementById('domain') === document.activeElement) {
                         generatePassword();
+                    }
+                }
+            });
+
+            // Add export/import buttons functionality (could be added to UI later)
+            // For now, we'll add them as keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey) {
+                    if (e.key === 'e' && isAuthenticated) {
+                        e.preventDefault();
+                        exportDomains();
                     }
                 }
             });
@@ -972,6 +1164,7 @@
             clearPin();
             startAutoLockTimer();
             loadDomainHistory();
+            updateStorageStatus();
         }
 
         function lockApp() {
@@ -1003,10 +1196,22 @@
             }
         }
 
-        // Password Generation using PBKDF2
+        // Domain normalization function for consistent password generation
+        function normalizeDomainName(domain) {
+            return domain
+                .toLowerCase()                    // Convert to lowercase
+                .trim()                          // Remove leading/trailing spaces
+                .replace(/\s+/g, '')             // Remove all spaces (including multiple spaces)
+                .replace(/[-_]+/g, '-')          // Normalize separators (convert underscores to hyphens, collapse multiple)
+                .replace(/[^\w-]/g, '')          // Remove special characters except word chars and hyphens
+                .replace(/^-+|-+$/g, '')         // Remove leading/trailing hyphens
+                .replace(/-+/g, '-');            // Collapse multiple consecutive hyphens to single
+        }
+
+        // Password Generation using PBKDF2 - FIXED for consistent case and whitespace handling
         async function generatePassword() {
             const masterPassword = document.getElementById('masterPassword').value;
-            const domain = document.getElementById('domain').value.trim();
+            let domain = document.getElementById('domain').value.trim();
             const length = parseInt(document.getElementById('length').value);
 
             if (!masterPassword || !domain) {
@@ -1014,10 +1219,13 @@
                 return;
             }
 
+            // CRITICAL FIX: Normalize domain for consistent password generation
+            const normalizedDomain = normalizeDomainName(domain);
+
             try {
-                // Create a deterministic password using PBKDF2
+                // Create a deterministic password using PBKDF2 with normalized domain
                 const encoder = new TextEncoder();
-                const salt = encoder.encode(domain);
+                const salt = encoder.encode(normalizedDomain); // Use normalized domain as salt
                 const keyMaterial = await window.crypto.subtle.importKey(
                     'raw',
                     encoder.encode(masterPassword),
@@ -1048,8 +1256,8 @@
                 document.getElementById('passwordDisplay').textContent = password;
                 document.getElementById('result').classList.add('show');
 
-                // Save domain to history
-                saveDomainToHistory(domain);
+                // Save domain to history (store both original case for display and normalized for generation)
+                saveDomainToHistory(domain, normalizedDomain);
 
             } catch (error) {
                 showMessage('Error generating password');
@@ -1116,16 +1324,34 @@
             }
         }
 
-        // Domain History Management
-        function saveDomainToHistory(domain) {
-            if (domain && !domains.includes(domain)) {
-                domains.unshift(domain);
-                if (domains.length > 50) { // Limit history size
-                    domains = domains.slice(0, 50);
-                }
-                saveData();
-                loadDomainHistory();
+        // Domain History Management - FIXED for consistent normalization
+        function saveDomainToHistory(originalDomain, normalizedDomain) {
+            if (!originalDomain) return;
+
+            // Re-normalize to ensure consistency with the new normalization function
+            const properlyNormalized = normalizeDomainName(originalDomain);
+
+            // Remove any existing domain with the same normalized name
+            domains = domains.filter(d => {
+                const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
+                return existingNormalized !== properlyNormalized;
+            });
+
+            // Add new domain object with both display and normalized versions
+            domains.unshift({
+                display: originalDomain.trim(), // Keep original case but trim whitespace
+                normalized: properlyNormalized, // Store properly normalized version
+                timestamp: Date.now()
+            });
+
+            // Limit history size
+            if (domains.length > 100) {
+                domains = domains.slice(0, 100);
             }
+
+            saveData();
+            loadDomainHistory();
+            updateStorageStatus();
         }
 
         function loadDomainHistory() {
@@ -1136,12 +1362,20 @@
                 return;
             }
 
-            // Group domains by category
+            // Group domains by category based on normalized names
             const categories = {};
-            domains.forEach(domain => {
-                const category = domain.includes('-') ? domain.split('-')[0] : 'Other';
+            domains.forEach(domainObj => {
+                // Handle both old string format and new object format
+                const displayName = typeof domainObj === 'object' ? domainObj.display : domainObj;
+                const normalizedName = typeof domainObj === 'object' ? domainObj.normalized : normalizeDomainName(domainObj);
+
+                const category = normalizedName.includes('-') ? normalizedName.split('-')[0] : 'Other';
+
                 if (!categories[category]) categories[category] = [];
-                categories[category].push(domain);
+                categories[category].push({
+                    display: displayName,
+                    normalized: normalizedName
+                });
             });
 
             let html = '';
@@ -1151,10 +1385,10 @@
 
                 categories[category].forEach(domain => {
                     html += `<div class="domain-item">
-                        <span class="domain-name" onclick="useDomain('${domain}')">${domain}</span>
+                        <span class="domain-name" onclick="useDomain('${domain.display}')">${domain.display}</span>
                         <div class="domain-actions">
-                            <button class="use-btn" onclick="useDomain('${domain}')">Use</button>
-                            <button class="delete-btn" onclick="deleteDomain('${domain}')">Del</button>
+                            <button class="use-btn" onclick="useDomain('${domain.display}')">Use</button>
+                            <button class="delete-btn" onclick="deleteDomain('${domain.normalized}')">Del</button>
                         </div>
                     </div>`;
                 });
@@ -1164,27 +1398,39 @@
             domainList.innerHTML = html;
         }
 
-        function useDomain(domain) {
-            document.getElementById('domain').value = domain;
+        // FIXED: Use original case for display, but ensure consistent generation
+        function useDomain(displayDomain) {
+            document.getElementById('domain').value = displayDomain;
             historySection.style.display = 'none';
         }
 
-        function deleteDomain(domain) {
-            domains = domains.filter(d => d !== domain);
+        // FIXED: Delete based on normalized name for consistency
+        function deleteDomain(normalizedDomain) {
+            domains = domains.filter(d => {
+                const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
+                return existingNormalized !== normalizedDomain;
+            });
             saveData();
             loadDomainHistory();
+            updateStorageStatus();
         }
 
         function clearAllHistory() {
-            if (confirm('Clear all domain history?')) {
+            if (confirm('Clear all domain history? This action cannot be undone.')) {
                 domains = [];
                 saveData();
                 loadDomainHistory();
+                updateStorageStatus();
+                showMessage('Domain history cleared');
             }
         }
 
         function toggleHistory() {
-            historySection.style.display = historySection.style.display === 'none' ? 'block' : 'none';
+            const isVisible = historySection.style.display !== 'none';
+            historySection.style.display = isVisible ? 'none' : 'block';
+            if (!isVisible) {
+                updateStorageStatus();
+            }
         }
 
         // About Section
@@ -1224,21 +1470,45 @@
                 z-index: 9999;
                 font-size: 16px;
                 font-weight: 500;
+                max-width: 300px;
+                text-align: center;
             `;
 
             document.body.appendChild(messageEl);
 
             setTimeout(() => {
-                document.body.removeChild(messageEl);
+                if (document.body.contains(messageEl)) {
+                    document.body.removeChild(messageEl);
+                }
             }, 3000);
         }
 
         // Global functions for onclick handlers
         window.useDomain = useDomain;
         window.deleteDomain = deleteDomain;
-        
+
         // Initialize app when loaded
         window.addEventListener('DOMContentLoaded', initApp);
+
+        // Handle storage events (when localStorage is modified in another tab)
+        window.addEventListener('storage', function(e) {
+            if (e.key === STORAGE_KEYS.DOMAINS) {
+                loadStoredData();
+                if (isAuthenticated) {
+                    loadDomainHistory();
+                    updateStorageStatus();
+                }
+            }
+        });
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', function() {
+            // Clear sensitive data from memory
+            currentPin = '';
+            if (lockTimeout) {
+                clearTimeout(lockTimeout);
+            }
+        });
     </script>
 </body>
 </html>
