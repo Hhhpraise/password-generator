@@ -84,7 +84,7 @@ MIT License - Free for personal and commercial use
 ![Splash Screen](./images/img_4.png) <!-- Replace with actual screenshots -->
 ![Lock Screen](./images/img_3.png)
 ![Password Generation](./images/img_1.png)
-![History View](./images/img_2.png)
+![History View](./images/img_6.png)
 ![About Us](./images/img_5.png)
 
 ## About the Developer
