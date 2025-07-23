@@ -994,12 +994,14 @@
         let lockTimeout;
         let domains = [];
         let storageAvailable = false;
+        let domainPreferences = {}; // Store length preferences per domain
 
         // Storage keys
         const STORAGE_KEYS = {
             PIN: 'securepass_pin',
             DOMAINS: 'securepass_domains',
-            SETTINGS: 'securepass_settings'
+            SETTINGS: 'securepass_settings',
+            DOMAIN_PREFERENCES: 'securepass_domain_preferences'
         };
 
         // DOM Elements
@@ -1099,7 +1101,10 @@
                 try {
                     storedPin = localStorage.getItem(STORAGE_KEYS.PIN) || '';
                     const storedDomains = localStorage.getItem(STORAGE_KEYS.DOMAINS);
+                    const storedPreferences = localStorage.getItem(STORAGE_KEYS.DOMAIN_PREFERENCES);
+
                     domains = storedDomains ? JSON.parse(storedDomains) : [];
+                    domainPreferences = storedPreferences ? JSON.parse(storedPreferences) : {};
 
                     // Validate domains array and migrate old format
                     if (!Array.isArray(domains)) {
@@ -1121,15 +1126,22 @@
                             };
                         });
                     }
+
+                    // Validate domain preferences object
+                    if (typeof domainPreferences !== 'object' || domainPreferences === null) {
+                        domainPreferences = {};
+                    }
                 } catch (error) {
                     console.error('Error loading stored data:', error);
                     domains = [];
                     storedPin = '';
+                    domainPreferences = {};
                 }
             } else {
                 // Fallback to in-memory storage
                 storedPin = '';
                 domains = [];
+                domainPreferences = {};
             }
         }
 
@@ -1139,6 +1151,7 @@
                 try {
                     localStorage.setItem(STORAGE_KEYS.PIN, storedPin);
                     localStorage.setItem(STORAGE_KEYS.DOMAINS, JSON.stringify(domains));
+                    localStorage.setItem(STORAGE_KEYS.DOMAIN_PREFERENCES, JSON.stringify(domainPreferences));
                     updateStorageStatus('success');
                 } catch (error) {
                     console.error('Error saving data:', error);
@@ -1346,17 +1359,95 @@
             }, 500);
         }
 
-        // Authentication
-        function authenticateWithBiometric() {
-            // Simulate biometric authentication
-            showMessage('Biometric authentication not available in browser');
-            setTimeout(() => {
-                if (Math.random() > 0.3) { // 70% success rate simulation
-                    authenticateUser();
-                } else {
-                    showMessage('Biometric authentication failed');
+        // Enhanced Biometric Authentication
+        async function authenticateWithBiometric() {
+            try {
+                // Check if WebAuthn is supported
+                if (!window.PublicKeyCredential) {
+                    showMessage('Biometric authentication not supported on this device');
+                    return;
                 }
-            }, 1500);
+
+                // Check if biometric authentication is available
+                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+
+                if (!available) {
+                    showMessage('No biometric sensors detected on this device');
+                    return;
+                }
+
+                showMessage('Place your finger on the sensor or look at the camera...');
+
+                // Create a simple authentication challenge
+                const challenge = new Uint8Array(32);
+                window.crypto.getRandomValues(challenge);
+
+                const publicKeyCredentialRequestOptions = {
+                    challenge: challenge,
+                    timeout: 30000,
+                    userVerification: 'required',
+                    allowCredentials: [] // Allow any credential
+                };
+
+                try {
+                    // Attempt biometric authentication
+                    const credential = await navigator.credentials.get({
+                        publicKey: publicKeyCredentialRequestOptions
+                    });
+
+                    if (credential) {
+                        showMessage('Biometric authentication successful!');
+                        setTimeout(() => {
+                            authenticateUser();
+                        }, 1000);
+                    }
+                } catch (authError) {
+                    // If no credentials exist, create a new one for future use
+                    if (authError.name === 'NotAllowedError' || authError.name === 'InvalidStateError') {
+                        try {
+                            const publicKeyCredentialCreationOptions = {
+                                challenge: challenge,
+                                rp: {
+                                    name: "SecurePass",
+                                    id: window.location.hostname
+                                },
+                                user: {
+                                    id: new TextEncoder().encode("securepass-user"),
+                                    name: "securepass-user",
+                                    displayName: "SecurePass User"
+                                },
+                                pubKeyCredParams: [{alg: -7, type: "public-key"}],
+                                authenticatorSelection: {
+                                    authenticatorAttachment: "platform",
+                                    userVerification: "required"
+                                },
+                                timeout: 30000,
+                                attestation: "direct"
+                            };
+
+                            const newCredential = await navigator.credentials.create({
+                                publicKey: publicKeyCredentialCreationOptions
+                            });
+
+                            if (newCredential) {
+                                showMessage('Biometric setup complete! Authentication successful.');
+                                setTimeout(() => {
+                                    authenticateUser();
+                                }, 1000);
+                            }
+                        } catch (createError) {
+                            console.log('Biometric setup failed:', createError);
+                            showMessage('Biometric authentication canceled or failed');
+                        }
+                    } else {
+                        console.log('Biometric auth error:', authError);
+                        showMessage('Biometric authentication failed. Please try again.');
+                    }
+                }
+            } catch (error) {
+                console.error('Biometric authentication error:', error);
+                showMessage('Biometric authentication not available. Please use PIN.');
+            }
         }
 
         function authenticateUser() {
@@ -1425,6 +1516,10 @@
             const normalizedDomain = normalizeDomainName(domain);
 
             try {
+                // Save the length preference for this domain
+                domainPreferences[normalizedDomain] = length;
+                saveData();
+
                 // Create a deterministic password using PBKDF2 with normalized domain
                 const encoder = new TextEncoder();
                 const salt = encoder.encode(normalizedDomain); // Use normalized domain as salt
@@ -1586,8 +1681,14 @@
                     <div class="category-header">${category.toUpperCase()}</div>`;
 
                 categories[category].forEach(domain => {
+                    // Check if this domain has a saved length preference
+                    const hasPreference = domainPreferences[domain.normalized];
+                    const preferenceText = hasPreference ? ` (${hasPreference}ch)` : '';
+
                     html += `<div class="domain-item">
-                        <span class="domain-name" onclick="useDomain('${domain.display}')">${domain.display}</span>
+                        <span class="domain-name" onclick="useDomain('${domain.display}')" title="Click to use this domain">
+                            ${domain.display}${preferenceText}
+                        </span>
                         <div class="domain-actions">
                             <button class="use-btn" onclick="useDomain('${domain.display}')">Use</button>
                             <button class="delete-btn" onclick="deleteDomain('${domain.normalized}')">Del</button>
@@ -1600,18 +1701,40 @@
             domainList.innerHTML = html;
         }
 
-        // FIXED: Use original case for display, but ensure consistent generation
+        // FIXED: Use original case for display, but ensure consistent generation and restore preferences
         function useDomain(displayDomain) {
             document.getElementById('domain').value = displayDomain;
+
+            // Get the normalized domain to check for saved preferences
+            const normalizedDomain = normalizeDomainName(displayDomain);
+
+            // Restore the previously used length for this domain
+            if (domainPreferences[normalizedDomain]) {
+                const lengthSelect = document.getElementById('length');
+                lengthSelect.value = domainPreferences[normalizedDomain];
+
+                // Visual feedback to show the length was restored
+                lengthSelect.style.backgroundColor = '#e6fffa';
+                setTimeout(() => {
+                    lengthSelect.style.backgroundColor = '';
+                }, 1000);
+
+                showMessage(`Restored ${domainPreferences[normalizedDomain]}-character length for this domain`);
+            }
+
             historySection.style.display = 'none';
         }
 
-        // FIXED: Delete based on normalized name for consistency
+        // FIXED: Delete based on normalized name for consistency and clean up preferences
         function deleteDomain(normalizedDomain) {
             domains = domains.filter(d => {
                 const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
                 return existingNormalized !== normalizedDomain;
             });
+
+            // Also remove the length preference for this domain
+            delete domainPreferences[normalizedDomain];
+
             saveData();
             loadDomainHistory();
             updateStorageStatus();
@@ -1620,10 +1743,11 @@
         function clearAllHistory() {
             if (confirm('Clear all domain history? This action cannot be undone.')) {
                 domains = [];
+                domainPreferences = {}; // Also clear length preferences
                 saveData();
                 loadDomainHistory();
                 updateStorageStatus();
-                showMessage('Domain history cleared');
+                showMessage('Domain history and preferences cleared');
             }
         }
 
