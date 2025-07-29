@@ -42,6 +42,65 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        /* Breach Checker Integration Styles */
+        .security-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .breach-check-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            touch-action: manipulation;
+        }
+
+        .breach-check-btn:active {
+            transform: scale(0.98);
+            background: linear-gradient(135deg, #c53030 0%, #9c2c2c 100%);
+        }
+
+        .breach-check-btn.secondary {
+            background: rgba(229, 62, 62, 0.1);
+            color: #e53e3e;
+            border: 2px solid #e53e3e;
+        }
+
+        .breach-check-btn.secondary:active {
+            background: rgba(229, 62, 62, 0.2);
+        }
+
+        .security-tip {
+            background: rgba(229, 62, 62, 0.1);
+            border: 1px solid rgba(229, 62, 62, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #c53030;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .security-tip.show {
+            animation: slideIn 0.3s ease;
+        }
+
         .container {
             width: 100%;
             max-width: 400px;
@@ -975,11 +1034,29 @@
             <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
         </div>
 
+        <div class="security-actions">
+            <button class="breach-check-btn" id="checkBreachBtn" style="display: none;">
+                🔍 Check Breach Status
+            </button>
+            <a href="https://hhhpraise.github.io/password-breach-checker/" class="breach-check-btn secondary" target="_blank">
+                🛡️ Open Breach Checker
+            </a>
+        </div>
+
+        <div class="security-tip" id="securityTip" style="display: none;">
+            <span>⚠️</span>
+            <span>
+                <strong>Security Tip:</strong> After generating a password, check if similar passwords have been breached.
+                This helps ensure your password patterns are secure.
+            </span>
+        </div>
+
         <div class="tips">
             <h3>💡 Tips for Quick Access:</h3>
             <ul>
                 <li><strong>Add to Home Screen:</strong> Install as app for instant access</li>
                 <li><strong>iOS Users:</strong> Switch apps quickly when Safari asks for passwords</li>
+                <li><strong>Check for breaches:</strong> Verify your passwords haven't been compromised</li>
                 <li><strong>Organize domains:</strong> gmail-personal, gmail-work, facebook-main</li>
                 <li><strong>Use categories:</strong> work-slack, personal-instagram</li>
                 <li><strong>Banking safety:</strong> chase-checking, wells-savings</li>
@@ -1018,6 +1095,7 @@
                     <li>🔢 <strong>Deterministic Generation</strong> - Same input = same password.</li>
                     <li>💾 <strong>Persistent Storage</strong> - Domain history saved locally.</li>
                     <li>🚀 <strong>Quick Access</strong> - Switch from Safari easily when prompted.</li>
+                    <li>🔍 <strong>Breach Detection</strong> - Check if passwords appear in known breaches.</li>
                 </ul>
 
                 <h3>How It Works:</h3>
@@ -1233,6 +1311,7 @@
             closeAboutBtn.addEventListener('click', () => aboutSection.style.display = 'none');
             dismissBannerBtn.addEventListener('click', dismissBanner);
             showInstructionsBtn.addEventListener('click', showInstallInstructions);
+            document.getElementById('checkBreachBtn').addEventListener('click', checkGeneratedPasswordBreach);
 
             document.addEventListener('keypress', resetTimeout);
             document.addEventListener('touchstart', resetTimeout);
@@ -1457,6 +1536,8 @@
 
                 document.getElementById('passwordDisplay').textContent = password;
                 document.getElementById('result').classList.add('show');
+                document.getElementById('checkBreachBtn').style.display = 'block';
+                setTimeout(showSecurityTip, 1500);
                 saveDomainToHistory(domain, normalizedDomain);
             } catch (error) {
                 showMessage('Error generating password');
@@ -1683,6 +1764,46 @@
         function dismissBanner() {
             addToHomeBanner.style.display = 'none';
             if (storageAvailable) localStorage.setItem('addToHomeDismissed', 'true');
+        }
+
+        // Enhanced breach checking integration
+        function checkGeneratedPasswordBreach() {
+            const password = document.getElementById('passwordDisplay').textContent;
+            if (!password) {
+                showMessage('No password generated yet');
+                return;
+            }
+
+            // Open breach checker with the generated password
+            const breachWindow = window.open(' https://hhhpraise.github.io/password-breach-checker/', '_blank', 'width=600,height=800,scrollbars=yes,resizable=yes');
+
+            // Try to pass the password to the breach checker (if same origin)
+            setTimeout(() => {
+                try {
+                    if (breachWindow && !breachWindow.closed) {
+                        breachWindow.postMessage({
+                            type: 'CHECK_PASSWORD',
+                            password: password
+                        }, '*');
+                    }
+                } catch (e) {
+                    // Cross-origin restrictions, user will need to paste manually
+                }
+            }, 1000);
+
+            showSecurityTip();
+        }
+
+        function showSecurityTip() {
+            const tip = document.getElementById('securityTip');
+            tip.style.display = 'flex';
+            tip.classList.add('show');
+
+            // Hide after 10 seconds
+            setTimeout(() => {
+                tip.style.display = 'none';
+                tip.classList.remove('show');
+            }, 10000);
         }
 
         // Utility functions
