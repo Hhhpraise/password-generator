@@ -249,6 +249,8 @@
     $('#domain').value = '';
     resultEl.classList.remove('show');
     if (securityTip) securityTip.classList.remove('show');
+    if (checkBreachBtn) checkBreachBtn.style.display = 'none';
+    closeBreachModal();
   }
 
   function startAutoLockTimer() {
@@ -493,11 +495,195 @@
     aboutSection.classList.toggle('show');
   }
 
-  // ── Breach checker ────────────────────────────────────────
+  // ── Breach checker modal ──────────────────────────────────
+  let breachVisible = false;
+  let breachChecking = false;
+
+  const breachOverlay       = $('#breachOverlay');
+  const breachPasswordInput = $('#breachPasswordInput');
+  const breachCheckBtn      = $('#breachCheckBtn');
+  const breachResult        = $('#breachResult');
+  const breachLoading       = $('#breachLoading');
+  const breachError         = $('#breachError');
+  const breachCloseBtn      = $('#breachClose');
+
+  function openBreachModal(password) {
+    if (!breachOverlay) return;
+    breachOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    if (password) {
+      breachPasswordInput.value = password;
+      breachPasswordInput.type = 'password';
+      breachVisible = false;
+      updateBreachToggleIcon();
+      // Auto-run check after brief delay for animation
+      setTimeout(() => runBreachCheck(), 350);
+    } else {
+      breachPasswordInput.value = '';
+    }
+
+    hideBreachStates();
+    breachPasswordInput.focus();
+  }
+
+  function closeBreachModal() {
+    if (!breachOverlay) return;
+    breachOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    breachPasswordInput.value = '';
+    hideBreachStates();
+    breachChecking = false;
+  }
+
+  function hideBreachStates() {
+    if (breachResult) breachResult.classList.remove('show');
+    if (breachLoading) breachLoading.classList.remove('show');
+    if (breachError) breachError.classList.remove('show');
+  }
+
+  function toggleBreachVisibility() {
+    breachVisible = !breachVisible;
+    breachPasswordInput.type = breachVisible ? 'text' : 'password';
+    updateBreachToggleIcon();
+    breachPasswordInput.focus();
+  }
+
+  function updateBreachToggleIcon() {
+    const icon = document.querySelector('#breachToggleVisibility i');
+    if (!icon) return;
+    if (breachVisible) {
+      icon.className = 'ph ph-eye-slash';
+    } else {
+      icon.className = 'ph ph-eye';
+    }
+  }
+
   function checkBreach() {
     const pwd = passwordDisplay.textContent;
     if (!pwd) { toast('Generate a password first'); return; }
-    window.open('https://hhhpraise.github.io/password-breach-checker/', '_blank');
+    // Copy password to clipboard
+    copyPassword();
+    // Open modal with password pre-filled and auto-check
+    openBreachModal(pwd);
+  }
+
+  async function runBreachCheck() {
+    const password = breachPasswordInput.value.trim();
+    if (!password) return;
+
+    if (breachChecking) return;
+    breachChecking = true;
+
+    hideBreachStates();
+    breachLoading.classList.add('show');
+    breachCheckBtn.disabled = true;
+
+    try {
+      // SHA-1 hash the password client-side
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+
+      const prefix = hashHex.slice(0, 5);
+      const suffix = hashHex.slice(5);
+
+      const response = await fetch('https://api.pwnedpasswords.com/range/' + prefix);
+      if (!response.ok) throw new Error('API request failed');
+
+      const text = await response.text();
+      const lines = text.split('\n');
+      let breachCount = 0;
+
+      for (const line of lines) {
+        const [hashSuffix, count] = line.trim().split(':');
+        if (hashSuffix === suffix) {
+          breachCount = parseInt(count, 10);
+          break;
+        }
+      }
+
+      displayBreachResult(breachCount, password.length);
+    } catch (e) {
+      breachLoading.classList.remove('show');
+      breachError.classList.add('show');
+    } finally {
+      breachCheckBtn.disabled = false;
+      breachChecking = false;
+    }
+  }
+
+  function displayBreachResult(breachCount, passwordLength) {
+    breachLoading.classList.remove('show');
+    breachError.classList.remove('show');
+
+    let level, icon, statusText, detail;
+
+    if (breachCount === 0) {
+      level = 'safe';
+      icon = 'check-circle';
+      statusText = 'Not found in any known breach';
+      detail = 'This ' + passwordLength + '-character password hasn\'t appeared in major breach databases. Still, make sure it\'s unique to this account.';
+    } else if (breachCount < 10) {
+      level = 'low';
+      icon = 'warning';
+      statusText = 'Found in ' + breachCount + ' breach' + (breachCount > 1 ? 'es' : '');
+      detail = 'This password has been exposed a few times. Consider using a different one, especially for important accounts.';
+    } else if (breachCount < 100) {
+      level = 'medium';
+      icon = 'warning-octagon';
+      statusText = 'Found in ' + breachCount + ' breaches';
+      detail = 'This password is known to attackers and appears in common password lists. Change it immediately and never reuse it.';
+    } else {
+      level = 'high';
+      icon = 'skull';
+      statusText = 'Found in ' + breachCount.toLocaleString() + ' breaches';
+      detail = 'This is a widely compromised password. Attackers try it first in automated attacks. Never use this for any account.';
+    }
+
+    breachResult.className = 'breach-result ' + level + ' show';
+    breachResult.innerHTML =
+      '<div class="result-status">' +
+        '<i class="ph ph-' + icon + '"></i>' +
+        statusText +
+      '</div>' +
+      '<div class="result-detail">' + detail + '</div>' +
+      (breachCount > 0
+        ? '<div class="result-meta">' +
+            '<span><i class="ph ph-database"></i> ' + breachCount.toLocaleString() + ' times</span>' +
+            '<span><i class="ph ph-gauge"></i> ' + (breachCount < 10 ? 'Low' : breachCount < 100 ? 'Medium' : 'High') + ' risk</span>' +
+          '</div>'
+        : '');
+  }
+
+  function breachCopyPassword() {
+    const pwd = breachPasswordInput.value;
+    if (!pwd) return;
+    navigator.clipboard.writeText(pwd).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = pwd;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    });
+    const btn = $('#breachCopyBtn');
+    btn.innerHTML = '<i class="ph ph-check"></i> Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<i class="ph ph-copy"></i> Copy password';
+      btn.classList.remove('copied');
+    }, 2500);
+  }
+
+  function breachClearInput() {
+    breachPasswordInput.value = '';
+    hideBreachStates();
+    breachPasswordInput.focus();
   }
 
   // ── PWA banner ────────────────────────────────────────────
@@ -582,8 +768,35 @@
     // Copy
     $('#copyBtn').addEventListener('click', copyPassword);
 
-    // Breach checker
+    // Breach checker — opens modal (replaces old tab-open behavior)
     if (checkBreachBtn) checkBreachBtn.addEventListener('click', checkBreach);
+
+    // Breach modal controls
+    if (breachCloseBtn) breachCloseBtn.addEventListener('click', closeBreachModal);
+    if (breachOverlay) {
+      breachOverlay.addEventListener('click', function (e) {
+        if (e.target === breachOverlay) closeBreachModal();
+      });
+    }
+    if (breachCheckBtn) breachCheckBtn.addEventListener('click', runBreachCheck);
+    const breachToggleBtn = $('#breachToggleVisibility');
+    if (breachToggleBtn) breachToggleBtn.addEventListener('click', toggleBreachVisibility);
+    if (breachPasswordInput) {
+      breachPasswordInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') runBreachCheck();
+      });
+    }
+    const breachCopyBtnEl = $('#breachCopyBtn');
+    if (breachCopyBtnEl) breachCopyBtnEl.addEventListener('click', breachCopyPassword);
+    const breachClearBtnEl = $('#breachClearBtn');
+    if (breachClearBtnEl) breachClearBtnEl.addEventListener('click', breachClearInput);
+
+    // Escape key closes modal
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && breachOverlay && breachOverlay.classList.contains('active')) {
+        closeBreachModal();
+      }
+    });
 
     // History
     $('#toggleHistory').addEventListener('click', toggleHistory);
