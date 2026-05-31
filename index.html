@@ -1,1874 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SecurePass by hhhpraise | Password Generator Tool</title>
-
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PHBhdGggZD0iTTE4IDhoLTFWNmMwLTIuNzYtMi4yNC01LTUtNVM3IDMuMjQgNyA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PHBhdGggZD0iTTE4IDhoLTFWNmMwLTIuNzYtMi4yNC01LTUtNVM3IDMuMjQgNyA2djJINmMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMmMxLjEgMCAyLS45IDItMlYxMGMwLTEuMS0uOS0yLTItMnptLTYgOWMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6bTMuMS05SDguOVY2YzAtMS43MSAxLjM5LTMuMSAzLjEtMy4xIDEuNzEgMCAzLjEgMS4zOSAzLjEgMy4xdjJ6Ii8+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-            -ms-touch-action: manipulation;
-        }
-
-        html {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            touch-action: manipulation;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
-            padding: 20px;
-            -webkit-user-select: none;
-            user-select: none;
-            padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overscroll-behavior: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Breach Checker Integration Styles */
-        .security-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .breach-check-btn {
-            padding: 12px;
-            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            touch-action: manipulation;
-        }
-
-        .breach-check-btn:active {
-            transform: scale(0.98);
-            background: linear-gradient(135deg, #c53030 0%, #9c2c2c 100%);
-        }
-
-        .breach-check-btn.secondary {
-            background: rgba(229, 62, 62, 0.1);
-            color: #e53e3e;
-            border: 2px solid #e53e3e;
-        }
-
-        .breach-check-btn.secondary:active {
-            background: rgba(229, 62, 62, 0.2);
-        }
-
-        .security-tip {
-            background: rgba(229, 62, 62, 0.1);
-            border: 1px solid rgba(229, 62, 62, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 15px;
-            font-size: 13px;
-            color: #c53030;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .security-tip.show {
-            animation: slideIn 0.3s ease;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            touch-action: manipulation;
-        }
-
-        /* Security Screen Styles */
-        .security-screen {
-            text-align: center;
-        }
-
-        .security-screen h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .biometric-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            touch-action: manipulation;
-        }
-
-        .pin-container {
-            margin-top: 20px;
-        }
-
-        .pin-display {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .pin-dot {
-            width: 15px;
-            height: 15px;
-            border: 2px solid #667eea;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-
-        .pin-dot.filled {
-            background: #667eea;
-        }
-
-        .pin-keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        .pin-key {
-            aspect-ratio: 1;
-            border: none;
-            border-radius: 50%;
-            background: rgba(102, 126, 234, 0.1);
-            color: #333;
-            font-size: 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            touch-action: manipulation;
-            min-height: 50px;
-            min-width: 50px;
-        }
-
-        .pin-key:active {
-            background: #667eea;
-            color: white;
-            transform: scale(0.95);
-        }
-
-        .pin-key.zero {
-            grid-column: 2;
-        }
-
-        .pin-key.delete {
-            background: rgba(229, 62, 62, 0.1);
-            color: #e53e3e;
-            font-size: 16px;
-        }
-
-        .setup-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .setup-section h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* Main App Styles */
-        .main-app {
-            display: none;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: white;
-            -webkit-user-select: text;
-            user-select: text;
-            touch-action: manipulation;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .generate-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            margin-bottom: 20px;
-            touch-action: manipulation;
-        }
-
-        .generate-btn:active {
-            transform: scale(0.98);
-        }
-
-        .result {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .result.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .password-display {
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 18px;
-            font-weight: bold;
-            color: #2d3748;
-            word-break: break-all;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e0;
-            margin: 10px 0;
-            -webkit-user-select: text;
-            user-select: text;
-        }
-
-        .copy-btn {
-            width: 100%;
-            padding: 12px;
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-            touch-action: manipulation;
-        }
-
-        .copy-btn:active {
-            background: #38a169;
-        }
-
-        .copy-btn.copied {
-            background: #2d3748;
-        }
-
-        .tips {
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .tips h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .tips ul {
-            padding-left: 20px;
-        }
-
-        .tips li {
-            margin-bottom: 5px;
-        }
-
-        .history-section {
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .history-header h3 {
-            color: #333;
-            margin: 0;
-        }
-
-        .clear-all-btn, .toggle-history {
-            padding: 8px 12px;
-            background: #e53e3e;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
-
-        .toggle-history {
-            width: 100%;
-            padding: 12px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px solid #667eea;
-            color: #667eea;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-
-        .domain-list {
-            max-height: 300px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .domain-category {
-            margin-bottom: 15px;
-        }
-
-        .category-header {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 14px;
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .category-header .caret {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        .domain-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #e2e8f0;
-            overflow: hidden;
-        }
-
-        .domain-name {
-            flex: 1;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 14px;
-            color: #2d3748;
-            cursor: pointer;
-            touch-action: manipulation;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding-right: 10px;
-        }
-
-        .domain-name:active {
-            color: #667eea;
-        }
-
-        .domain-actions {
-            display: flex;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .use-btn, .delete-btn {
-            padding: 6px 10px;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
-
-        .use-btn {
-            background: #48bb78;
-            color: white;
-        }
-
-        .delete-btn {
-            background: #e53e3e;
-            color: white;
-        }
-
-        .no-history {
-            text-align: center;
-            color: #718096;
-            font-style: italic;
-            padding: 20px;
-        }
-
-        .lock-btn {
-            position: fixed;
-            top: max(20px, env(safe-area-inset-top));
-            right: max(20px, env(safe-area-inset-right));
-            width: 50px;
-            height: 50px;
-            background: rgba(229, 62, 62, 0.9);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            touch-action: manipulation;
-        }
-
-        /* Quick Access Section */
-        .quick-access {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .quick-access h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .shortcuts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .shortcut-btn {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            touch-action: manipulation;
-            transition: background 0.2s;
-        }
-
-        .shortcut-btn:active {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .ios-shortcut-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        /* Add to Home Screen Banner */
-        #addToHomeBanner {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            color: white;
-            padding: 20px 15px;
-            text-align: center;
-            z-index: 2000;
-            animation: slideUp 0.5s ease;
-            border-top: 2px solid #667eea;
-        }
-
-        #addToHomeBanner .banner-content {
-            max-width: 350px;
-            margin: 0 auto;
-        }
-
-        #addToHomeBanner h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-            color: #667eea;
-        }
-
-        #addToHomeBanner p {
-            margin-bottom: 15px;
-            font-size: 14px;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        #addToHomeBanner .banner-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        #addToHomeBanner button {
-            background: #48bb78;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-            touch-action: manipulation;
-        }
-
-        #addToHomeBanner button:hover {
-            background: #38a169;
-        }
-
-        #addToHomeBanner .dismiss-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        #addToHomeBanner .dismiss-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .ios-instructions {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
-            text-align: left;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .ios-instructions.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .ios-instructions ol {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .ios-instructions li {
-            margin-bottom: 8px;
-        }
-
-        .share-icon {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background: #007AFF;
-            border-radius: 3px;
-            position: relative;
-            margin: 0 5px;
-        }
-
-        .share-icon::before {
-            content: "⬆";
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            color: white;
-            font-size: 12px;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        /* Safari-specific adjustments */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                padding: max(20px, constant(safe-area-inset-top)) max(20px, constant(safe-area-inset-right)) max(20px, constant(safe-area-inset-bottom)) max(20px, constant(safe-area-inset-left));
-            }
-
-            .lock-btn {
-                top: max(20px, constant(safe-area-inset-top));
-                right: max(20px, constant(safe-area-inset-right));
-            }
-        }
-
-        /* Loading screen */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            transition: opacity 0.5s;
-        }
-
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 5px solid white;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        #loadingScreen h1 {
-            color: white;
-            font-size: 24px;
-        }
-
-        /* About Section */
-        .about-section {
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 25px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about-content h2 {
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .about-content h3 {
-            color: #764ba2;
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-
-        .about-content ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .about-content li {
-            margin-bottom: 8px;
-        }
-
-        .toggle-about {
-            width: 100%;
-            padding: 12px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px solid #667eea;
-            color: #667eea;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            touch-action: manipulation;
-        }
-
-        .toggle-about:active {
-            background: rgba(102, 126, 234, 0.2);
-        }
-
-        .close-about {
-            width: 100%;
-            padding: 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: background 0.2s;
-            touch-action: manipulation;
-        }
-
-        .close-about:active {
-            background: #5a6fcf;
-        }
-
-        .github-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background: #333;
-            color: white;
-            text-align: center;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-decoration: none;
-            font-weight: 600;
-            touch-action: manipulation;
-        }
-
-        /* Contact Section Styles */
-        .contact-section {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(72, 187, 120, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #48bb78;
-        }
-
-        .contact-section h4 {
-            color: #38a169;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .contact-section p {
-            color: #2d3748;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .contact-email {
-            display: inline-block;
-            color: #667eea;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 8px 16px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            font-size: 14px;
-            transition: all 0.2s;
-            touch-action: manipulation;
-        }
-
-        .contact-email:hover, .contact-email:active {
-            background: rgba(102, 126, 234, 0.2);
-            transform: translateY(-1px);
-        }
-
-        .version {
-            text-align: center;
-            margin-top: 15px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Storage status indicator */
-        .storage-status {
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-top: 10px;
-            padding: 8px;
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 6px;
-        }
-
-        .storage-status.error {
-            color: #e53e3e;
-            background: rgba(229, 62, 62, 0.05);
-        }
-
-        .storage-status.success {
-            color: #48bb78;
-            background: rgba(72, 187, 120, 0.05);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .shake {
-            animation: shake 0.5s;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            /* Larger tap targets for mobile */
-            .pin-key, .use-btn, .delete-btn {
-                min-height: 44px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FBFBF9">
+  <meta name="description" content="SecurePass — a private, client-side password generator. Your passwords never leave your device.">
+
+  <title>SecurePass</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Phosphor Icons -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/+esm"></script>
+
+  <!-- Favicon (inline lock SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><rect width='256' height='256' fill='none'/><path fill='%231A1A1A' d='M208 80H176V56a48 48 0 0 0-96 0v24H48a16 16 0 0 0-16 16v112a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16Zm-80 84a12 12 0 1 1 12-12a12 12 0 0 1-12 12Zm32-84H96V56a32 32 0 0 1 64 0Z'/></svg>">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" style="text-align: center; color: white; padding: 20px;">
-        <h1>Welcome to SecurePass</h1>
-        <p style="max-width: 500px; margin: 20px auto; line-height: 1.6;">
-            SecurePass generates strong, unique passwords using military-grade cryptography.
-            All processing happens on your device - your passwords never leave your browser.
-            <br><br>
-            Simply enter your master password and service name to generate secure passwords.
-        </p>
-        <button id="startBtn" style="
-            padding: 15px 30px;
-            background: white;
-            color: #764ba2;
-            border: none;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 30px;
-            cursor: pointer;
-            touch-action: manipulation;
-        ">Get Started</button>
+
+  <!-- ═══════════════════════════════════════════════════════
+       Loading Screen
+       ═══════════════════════════════════════════════════════ -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="brand">SecurePass</div>
+    <div class="tagline">
+      Private, deterministic password generation. Your master password + a domain name produces a unique, strong password every time — nothing leaves your device.
+    </div>
+    <button class="start-btn" id="startBtn">Get started</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PWA Install Banner
+       ═══════════════════════════════════════════════════════ -->
+  <div class="pwa-banner" id="addToHomeBanner">
+    <h3>Install SecurePass</h3>
+    <p>Add to your home screen for quick access whenever you need a password.</p>
+    <div class="banner-actions">
+      <button class="show-how-btn" id="showInstructions">Show me how</button>
+      <button class="dismiss-btn" id="dismissBanner">Maybe later</button>
+    </div>
+    <div class="pwa-instructions" id="iosInstructions">
+      <strong>How to install on iPhone:</strong>
+      <ol>
+        <li>Tap the Share button in Safari's toolbar</li>
+        <li>Scroll and tap "Add to Home Screen"</li>
+        <li>Tap "Add" to confirm</li>
+        <li>SecurePass appears on your home screen</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       Security / PIN Screen
+       ═══════════════════════════════════════════════════════ -->
+  <div class="container security-screen" id="securityScreen" style="display:none;">
+    <h1>SecurePass</h1>
+    <p class="subtitle">Enter your PIN to unlock</p>
+
+    <button class="biometric-btn" id="biometricBtn">
+      <i class="ph ph-fingerprint"></i>
+      <span>Use biometrics</span>
+    </button>
+
+    <div class="pin-container">
+      <div class="pin-display">
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+        <div class="pin-dot" id="dot4"></div>
+        <div class="pin-dot" id="dot5"></div>
+        <div class="pin-dot" id="dot6"></div>
+      </div>
+
+      <div class="pin-keypad">
+        <button class="pin-key" data-key="1">1</button>
+        <button class="pin-key" data-key="2">2</button>
+        <button class="pin-key" data-key="3">3</button>
+        <button class="pin-key" data-key="4">4</button>
+        <button class="pin-key" data-key="5">5</button>
+        <button class="pin-key" data-key="6">6</button>
+        <button class="pin-key" data-key="7">7</button>
+        <button class="pin-key" data-key="8">8</button>
+        <button class="pin-key" data-key="9">9</button>
+        <button class="pin-key zero" data-key="0">0</button>
+        <button class="pin-key delete" id="deletePin"><i class="ph ph-backspace"></i></button>
+      </div>
     </div>
 
-    <!-- Add to Home Screen Banner -->
-    <div id="addToHomeBanner">
-        <div class="banner-content">
-            <h3>📱 Install SecurePass</h3>
-            <p>Add to your home screen for quick access when filling passwords!</p>
-            <div class="banner-buttons">
-                <button id="showInstructions">Show Me How</button>
-                <button id="dismissBanner" class="dismiss-btn">Maybe Later</button>
-            </div>
-            <div class="ios-instructions" id="iosInstructions">
-                <strong>📋 How to install on iPhone:</strong>
-                <ol>
-                    <li>Tap the Share button <span class="share-icon"></span> at the bottom of Safari</li>
-                    <li>Scroll down and tap "Add to Home Screen"</li>
-                    <li>Tap "Add" in the top right corner</li>
-                    <li>SecurePass will appear on your home screen!</li>
-                </ol>
-                <p><strong>✨ Benefits:</strong> Quick access, full screen, works offline!</p>
-                <p><strong>💡 Pro Tip:</strong> Once installed, you can quickly switch to SecurePass when Safari asks for a password!</p>
-            </div>
+    <div class="setup-section" id="setupSection" style="display:none;">
+      <h3>Set up your PIN</h3>
+      <p>Choose a 6-digit PIN to protect your passwords.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       Main App
+       ═══════════════════════════════════════════════════════ -->
+  <div class="container main-app" id="mainApp">
+    <button class="lock-btn" id="lockBtn" title="Lock app">
+      <i class="ph ph-lock"></i>
+    </button>
+
+    <!-- Header -->
+    <div class="app-header">
+      <h1>SecurePass</h1>
+      <span class="version">v2.0.0</span>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="quick-access">
+      <div class="quick-access-label">Quick access</div>
+      <div class="shortcuts-row">
+        <button class="shortcut-chip" data-prefix="gmail-">Gmail</button>
+        <button class="shortcut-chip" data-prefix="facebook-">Facebook</button>
+        <button class="shortcut-chip" data-prefix="instagram-">Instagram</button>
+        <button class="shortcut-chip" data-prefix="x-">X</button>
+        <button class="shortcut-chip" data-prefix="github-">GitHub</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="field">
+      <label for="masterPassword">Master password</label>
+      <input type="password" id="masterPassword" placeholder="Your master password" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label for="domain">Domain / service</label>
+      <input type="text" id="domain" placeholder="e.g. gmail-personal, github-work" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label for="length">Password length</label>
+      <select id="length">
+        <option value="12">12 characters</option>
+        <option value="16" selected>16 characters</option>
+        <option value="20">20 characters</option>
+        <option value="24">24 characters</option>
+        <option value="32">32 characters</option>
+      </select>
+    </div>
+
+    <button class="generate-btn" id="generateBtn">Generate password</button>
+
+    <!-- Result -->
+    <div class="result" id="result">
+      <label>Your password</label>
+      <div class="password-display" id="passwordDisplay"></div>
+      <div class="copy-row">
+        <button class="copy-btn" id="copyBtn">
+          <i class="ph ph-copy"></i>
+          Copy to clipboard
+        </button>
+      </div>
+    </div>
+
+    <!-- Security actions -->
+    <div class="security-actions">
+      <button class="breach-link danger" id="checkBreachBtn" style="display:none;">
+        <i class="ph ph-shield-warning"></i>
+        Check breach status
+      </button>
+      <a href="https://hhhpraise.github.io/password-breach-checker/" class="breach-link" target="_blank" rel="noopener">
+        <i class="ph ph-shield-check"></i>
+        Open breach checker
+      </a>
+    </div>
+
+    <div class="security-tip" id="securityTip">
+      After generating a password, check if similar passwords have appeared in known data breaches. This helps ensure your patterns stay secure.
+    </div>
+
+    <!-- Tips -->
+    <div class="tips">
+      <h3>Tips</h3>
+      <ul>
+        <li>Same master password + domain always produces the same result</li>
+        <li>Use categories: work-slack, personal-instagram, banking-chase</li>
+        <li>All processing happens locally — nothing is ever sent anywhere</li>
+        <li>Add to your home screen for instant access on mobile</li>
+      </ul>
+    </div>
+
+    <!-- History -->
+    <button class="section-toggle" id="toggleHistory">
+      <i class="ph ph-clock-counter-clockwise"></i>
+      Domain history
+    </button>
+
+    <div class="history-section" id="historySection">
+      <div class="history-header">
+        <h3>Saved domains</h3>
+        <button class="clear-all-btn" id="clearHistoryBtn">Clear all</button>
+      </div>
+      <div class="domain-list" id="domainList">
+        <div class="no-history">No domains saved yet</div>
+      </div>
+      <div class="storage-status" id="storageStatus"></div>
+    </div>
+
+    <!-- About -->
+    <button class="section-toggle" id="toggleAbout">
+      <i class="ph ph-info"></i>
+      About SecurePass
+    </button>
+
+    <div class="about-section" id="aboutSection">
+      <h2>About SecurePass</h2>
+
+      <h3>How it works</h3>
+      <p>Your master password and domain name are combined using PBKDF2 with 100,000 iterations to generate a unique, deterministic password. The same inputs always produce the same output — so you never need to store your passwords anywhere.</p>
+
+      <h3>Security</h3>
+      <ul>
+        <li>Zero data collection — no servers, no tracking</li>
+        <li>Offline-first — works without an internet connection</li>
+        <li>All processing happens in your browser via the Web Crypto API</li>
+        <li>256-bit cryptographic operations</li>
+        <li>Auto-locks after 5 minutes of inactivity</li>
+      </ul>
+
+      <h3>Features</h3>
+      <ul>
+        <li>Deterministic generation — same input always yields the same password</li>
+        <li>Domain history with smart categorization</li>
+        <li>PIN and biometric protection</li>
+        <li>PWA support — install as a native-like app</li>
+        <li>Integrated breach checking</li>
+      </ul>
+
+      <div class="contact-section">
+        <h4>Contact</h4>
+        <p>Have feedback or found an issue? I'd love to hear from you.</p>
+        <a href="mailto:hhhpraise33@gmail.com?subject=SecurePass%20Feedback" class="contact-email">
+          <i class="ph ph-envelope"></i>
+          hhhpraise33@gmail.com
+        </a>
+      </div>
+
+      <a href="https://github.com/Hhhpraise/password-generator" target="_blank" rel="noopener" class="github-link">
+        <i class="ph ph-github-logo"></i>
+        View on GitHub
+      </a>
+
+      <button class="close-about" id="closeAbout">Close</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       Breach Checker Modal
+       ═══════════════════════════════════════════════════════ -->
+  <div class="breach-overlay" id="breachOverlay">
+    <div class="breach-panel">
+      <div class="breach-header">
+        <h2>
+          <i class="ph ph-shield-warning"></i>
+          Breach check
+        </h2>
+        <button class="breach-close" id="breachClose">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <div class="breach-body">
+        <div class="breach-input-wrap">
+          <input type="password" id="breachPasswordInput" placeholder="Password to check" autocomplete="off">
+          <button class="breach-input-icon" id="breachToggleVisibility" title="Show password">
+            <i class="ph ph-eye"></i>
+          </button>
         </div>
-    </div>
 
-    <!-- Security Screen -->
-    <div class="container security-screen" id="securityScreen">
-        <h1>🔐 Secure Access</h1>
-
-        <button class="biometric-btn" id="biometricBtn">
-            <span>👆</span>
-            <span>Use Touch/Face ID</span>
+        <button class="breach-check-btn" id="breachCheckBtn">
+          <i class="ph ph-magnifying-glass"></i>
+          Check for breaches
         </button>
 
-        <div class="pin-container">
-            <div class="pin-display">
-                <div class="pin-dot" id="dot1"></div>
-                <div class="pin-dot" id="dot2"></div>
-                <div class="pin-dot" id="dot3"></div>
-                <div class="pin-dot" id="dot4"></div>
-                <div class="pin-dot" id="dot5"></div>
-                <div class="pin-dot" id="dot6"></div>
-            </div>
-
-            <div class="pin-keypad">
-                <button class="pin-key" data-key="1">1</button>
-                <button class="pin-key" data-key="2">2</button>
-                <button class="pin-key" data-key="3">3</button>
-                <button class="pin-key" data-key="4">4</button>
-                <button class="pin-key" data-key="5">5</button>
-                <button class="pin-key" data-key="6">6</button>
-                <button class="pin-key" data-key="7">7</button>
-                <button class="pin-key" data-key="8">8</button>
-                <button class="pin-key" data-key="9">9</button>
-                <button class="pin-key zero" data-key="0">0</button>
-                <button class="pin-key delete" id="deletePin">⌫</button>
-            </div>
+        <div class="breach-loading" id="breachLoading">
+          <div class="breach-spinner"></div>
+          <div>Checking against known breaches&hellip;</div>
         </div>
 
-        <div class="setup-section" id="setupSection" style="display: none;">
-            <h3>Setup New PIN</h3>
-            <p style="color: #666; margin-bottom: 15px;">Enter a 6-digit PIN to secure your passwords</p>
+        <div class="breach-result" id="breachResult"></div>
+
+        <div class="breach-error" id="breachError">
+          Unable to reach the breach database. Check your connection and try again.
         </div>
+
+        <div class="breach-actions">
+          <button class="breach-copy-btn" id="breachCopyBtn">
+            <i class="ph ph-copy"></i>
+            Copy password
+          </button>
+          <button id="breachClearBtn">
+            <i class="ph ph-eraser"></i>
+            Clear
+          </button>
+        </div>
+
+        <div class="breach-privacy">
+          <i class="ph ph-shield-check"></i>
+          <span>Your password is hashed locally. Only the first 5 characters of the hash are sent over HTTPS. The full password never leaves your device.</span>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Main App -->
-    <div class="container main-app" id="mainApp">
-        <button class="lock-btn" id="lockBtn" title="Lock App">🔒</button>
-
-        <h1>🔐 SecurePass Gen</h1>
-
-        <!-- Quick Access Section -->
-        <div class="quick-access">
-            <h3>⚡ Quick Access</h3>
-            <div class="shortcuts-grid">
-                <button class="shortcut-btn" onclick="fillQuickDomain('gmail-')">📧 Gmail</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('facebook-')">📘 Facebook</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('instagram-')">📷 Instagram</button>
-                <button class="shortcut-btn" onclick="fillQuickDomain('X-')">🐦 X</button>
-            </div>
-            <div class="ios-shortcut-info">
-                💡 <strong>iOS Tip:</strong> After installing to home screen, you can quickly switch to SecurePass when Safari prompts for passwords. Just double-tap home button or swipe up and tap SecurePass!
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label for="masterPassword">Master Password</label>
-            <input type="password" id="masterPassword" placeholder="Enter your master password">
-        </div>
-
-        <div class="input-group">
-            <label for="domain">Domain/Service</label>
-            <input type="text" id="domain" placeholder="e.g., gmail-personal, facebook-main">
-        </div>
-
-        <div class="input-group">
-            <label for="length">Password Length</label>
-            <select id="length">
-                <option value="12">12 characters</option>
-                <option value="16" selected>16 characters</option>
-                <option value="20">20 characters</option>
-                <option value="24">24 characters</option>
-                <option value="32">32 characters</option>
-            </select>
-        </div>
-
-        <button class="generate-btn" id="generateBtn">Generate Password</button>
-
-        <div class="result" id="result">
-            <label>Generated Password:</label>
-            <div class="password-display" id="passwordDisplay"></div>
-            <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
-        </div>
-
-        <div class="security-actions">
-            <button class="breach-check-btn" id="checkBreachBtn" style="display: none;">
-                🔍 Check Breach Status
-            </button>
-            <a href="https://hhhpraise.github.io/password-breach-checker/" class="breach-check-btn secondary" target="_blank">
-                🛡️ Open Breach Checker
-            </a>
-        </div>
-
-        <div class="security-tip" id="securityTip" style="display: none;">
-            <span>⚠️</span>
-            <span>
-                <strong>Security Tip:</strong> After generating a password, check if similar passwords have been breached.
-                This helps ensure your password patterns are secure.
-            </span>
-        </div>
-
-        <div class="tips">
-            <h3>💡 Tips for Quick Access:</h3>
-            <ul>
-                <li><strong>Add to Home Screen:</strong> Install as app for instant access</li>
-                <li><strong>iOS Users:</strong> Switch apps quickly when Safari asks for passwords</li>
-                <li><strong>Check for breaches:</strong> Verify your passwords haven't been compromised</li>
-                <li><strong>Organize domains:</strong> gmail-personal, gmail-work, facebook-main</li>
-                <li><strong>Use categories:</strong> work-slack, personal-instagram</li>
-                <li><strong>Banking safety:</strong> chase-checking, wells-savings</li>
-                <li><strong>Remember:</strong> Same input always = same password</li>
-            </ul>
-        </div>
-
-        <button class="toggle-history" id="toggleHistory">📋 Show/Hide Domain History</button>
-
-        <div class="history-section" id="historySection" style="display: none;">
-            <div class="history-header">
-                <h3>📁 Saved Domains</h3>
-                <button class="clear-all-btn" id="clearHistoryBtn">Clear All</button>
-            </div>
-            <div class="storage-status" id="storageStatus"></div>
-            <div class="domain-list" id="domainList">
-                <div class="no-history">No domains saved yet</div>
-            </div>
-        </div>
-
-        <!-- About Section -->
-        <button class="toggle-about" id="toggleAbout">ℹ️ About SecurePass</button>
-
-        <div class="about-section" id="aboutSection">
-            <div class="about-content">
-                <h2>🔒 About SecurePass</h2>
-
-                <h3>What is SecurePass?</h3>
-                <p>A free, open-source password generator that creates strong, unique passwords using military-grade cryptography. All processing happens locally—your passwords never leave your device.</p>
-
-                <h3>Key Features:</h3>
-                <ul>
-                    <li>🔐 <strong>Zero Data Collection</strong> - No servers, no tracking.</li>
-                    <li>⚡ <strong>Offline-First</strong> - Works without internet.</li>
-                    <li>📱 <strong>PWA Support</strong> - Install as an app for quick access.</li>
-                    <li>🔢 <strong>Deterministic Generation</strong> - Same input = same password.</li>
-                    <li>💾 <strong>Persistent Storage</strong> - Domain history saved locally.</li>
-                    <li>🚀 <strong>Quick Access</strong> - Switch from Safari easily when prompted.</li>
-                    <li>🔍 <strong>Breach Detection</strong> - Check if passwords appear in known breaches.</li>
-                </ul>
-
-                <h3>How It Works:</h3>
-                <p>Your master password + domain name are hashed using <strong>PBKDF2 with 100,000 iterations</strong> to generate a unique password. Domain history is stored locally in your browser.</p>
-
-                <h3>Quick Access on iOS:</h3>
-                <p>After installing to home screen, when Safari prompts for a password, you can quickly switch to SecurePass using:</p>
-                <ul>
-                    <li>Double-tap home button and select SecurePass</li>
-                    <li>Swipe up from bottom and tap SecurePass</li>
-                    <li>Use Control Center app switcher</li>
-                </ul>
-
-                <h3>Author:</h3>
-                <p>Created by <strong>hhhpraise</strong> - A developer passionate about privacy and security.</p>
-
-                <!-- Contact Section -->
-                <div class="contact-section">
-                    <h4>📧 Contact & Feedback</h4>
-                    <p>Have suggestions, found a bug, or want to share feedback? I'd love to hear from you!</p>
-                    <a href="mailto:hhhpraise33@gmail.com?subject=SecurePass%20Feedback" class="contact-email">
-                        ✉️ hhhpraise33@gmail.com
-                    </a>
-                </div>
-
-                <a href="https://github.com/Hhhpraise/password-generator" target="_blank" class="github-btn">View on GitHub</a>
-
-                <div class="version">v1.4.0 - Enhanced user experience</div>
-
-                <button class="close-about" id="closeAbout">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Security variables
-        let currentPin = '';
-        let storedPin = '';
-        let isAuthenticated = false;
-        let isSettingPin = false;
-        let lockTimeout;
-        let domains = [];
-        let storageAvailable = false;
-        let domainPreferences = {};
-        let collapsedCategories = {};
-
-        // Storage keys
-        const STORAGE_KEYS = {
-            PIN: 'securepass_pin',
-            DOMAINS: 'securepass_domains',
-            SETTINGS: 'securepass_settings',
-            DOMAIN_PREFERENCES: 'securepass_domain_preferences'
-        };
-
-        // DOM Elements
-        const loadingScreen = document.getElementById('loadingScreen');
-        const securityScreen = document.getElementById('securityScreen');
-        const mainApp = document.getElementById('mainApp');
-        const setupSection = document.getElementById('setupSection');
-        const biometricBtn = document.getElementById('biometricBtn');
-        const pinKeys = document.querySelectorAll('.pin-key:not(#deletePin)');
-        const deletePinBtn = document.getElementById('deletePin');
-        const lockBtn = document.getElementById('lockBtn');
-        const generateBtn = document.getElementById('generateBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const toggleHistoryBtn = document.getElementById('toggleHistory');
-        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-        const historySection = document.getElementById('historySection');
-        const toggleAboutBtn = document.getElementById('toggleAbout');
-        const aboutSection = document.getElementById('aboutSection');
-        const closeAboutBtn = document.getElementById('closeAbout');
-        const addToHomeBanner = document.getElementById('addToHomeBanner');
-        const dismissBannerBtn = document.getElementById('dismissBanner');
-        const showInstructionsBtn = document.getElementById('showInstructions');
-        const iosInstructions = document.getElementById('iosInstructions');
-        const storageStatus = document.getElementById('storageStatus');
-
-        // Initialize app
-        function initApp() {
-            checkStorageAvailability();
-            loadStoredData();
-            handleURLParams();
-            setupEventListeners();
-            updateStorageStatus();
-            setTimeout(showAddToHomeBanner, 3000);
-            registerServiceWorker();
-
-            document.getElementById('startBtn').addEventListener('click', () => {
-                loadingScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    if (!storedPin) {
-                        setupSection.style.display = 'block';
-                        isSettingPin = true;
-                    }
-                    securityScreen.style.display = 'block';
-                }, 500);
-            });
-        }
-
-        // Service Worker registration
-        function registerServiceWorker() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js')
-                    .catch(() => console.log('SW registration failed'));
-            }
-        }
-
-        // Check if localStorage is available
-        function checkStorageAvailability() {
-            try {
-                const test = '__localStorage_test__';
-                localStorage.setItem(test, test);
-                localStorage.removeItem(test);
-                storageAvailable = true;
-            } catch (e) {
-                storageAvailable = false;
-            }
-        }
-
-        // Load stored data from localStorage
-        function loadStoredData() {
-            if (storageAvailable) {
-                try {
-                    storedPin = localStorage.getItem(STORAGE_KEYS.PIN) || '';
-                    const storedDomains = localStorage.getItem(STORAGE_KEYS.DOMAINS);
-                    const storedPreferences = localStorage.getItem(STORAGE_KEYS.DOMAIN_PREFERENCES);
-
-                    domains = storedDomains ? JSON.parse(storedDomains) : [];
-                    domainPreferences = storedPreferences ? JSON.parse(storedPreferences) : {};
-
-                    if (!Array.isArray(domains)) {
-                        domains = [];
-                    } else {
-                        domains = domains.map(domain => {
-                            if (typeof domain === 'string') {
-                                return {
-                                    display: domain.trim(),
-                                    normalized: normalizeDomainName(domain),
-                                    timestamp: Date.now()
-                                };
-                            }
-                            return {
-                                ...domain,
-                                normalized: normalizeDomainName(domain.display || domain.normalized || '')
-                            };
-                        });
-                    }
-
-                    if (typeof domainPreferences !== 'object' || domainPreferences === null) {
-                        domainPreferences = {};
-                    }
-                } catch (error) {
-                    domains = [];
-                    storedPin = '';
-                    domainPreferences = {};
-                }
-            } else {
-                storedPin = '';
-                domains = [];
-                domainPreferences = {};
-            }
-        }
-
-        // Save data to localStorage
-        function saveData() {
-            if (storageAvailable) {
-                try {
-                    localStorage.setItem(STORAGE_KEYS.PIN, storedPin);
-                    localStorage.setItem(STORAGE_KEYS.DOMAINS, JSON.stringify(domains));
-                    localStorage.setItem(STORAGE_KEYS.DOMAIN_PREFERENCES, JSON.stringify(domainPreferences));
-                    updateStorageStatus('success');
-                } catch (error) {
-                    updateStorageStatus('error');
-                }
-            }
-        }
-
-        // Update storage status indicator
-        function updateStorageStatus(status = null) {
-            if (!storageStatus) return;
-
-            if (status === 'success') {
-                storageStatus.textContent = '✓ Data saved successfully';
-                storageStatus.className = 'storage-status success';
-                setTimeout(() => updateStorageStatus(), 2000);
-            } else if (status === 'error') {
-                storageStatus.textContent = '⚠ Error saving data';
-                storageStatus.className = 'storage-status error';
-            } else {
-                if (storageAvailable) {
-                    const domainsCount = domains.length;
-                    storageStatus.textContent = `💾 ${domainsCount} domains stored locally`;
-                    storageStatus.className = 'storage-status';
-                } else {
-                    storageStatus.textContent = '⚠ Storage unavailable - history won\'t persist';
-                    storageStatus.className = 'storage-status error';
-                }
-            }
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            pinKeys.forEach(key => key.addEventListener('click', () => addPin(key.dataset.key)));
-            deletePinBtn.addEventListener('click', deletePin);
-            biometricBtn.addEventListener('click', authenticateWithBiometric);
-            lockBtn.addEventListener('click', lockApp);
-            generateBtn.addEventListener('click', generatePassword);
-            copyBtn.addEventListener('click', copyPassword);
-            toggleHistoryBtn.addEventListener('click', toggleHistory);
-            clearHistoryBtn.addEventListener('click', clearAllHistory);
-            toggleAboutBtn.addEventListener('click', toggleAbout);
-            closeAboutBtn.addEventListener('click', () => aboutSection.style.display = 'none');
-            dismissBannerBtn.addEventListener('click', dismissBanner);
-            showInstructionsBtn.addEventListener('click', showInstallInstructions);
-            document.getElementById('checkBreachBtn').addEventListener('click', checkGeneratedPasswordBreach);
-
-            document.addEventListener('keypress', resetTimeout);
-            document.addEventListener('touchstart', resetTimeout);
-            document.addEventListener('click', resetTimeout);
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    if (document.getElementById('masterPassword') === document.activeElement ||
-                        document.getElementById('domain') === document.activeElement) {
-                        generatePassword();
-                    }
-                }
-            });
-        }
-
-        // Quick domain filling
-        function fillQuickDomain(prefix) {
-            const domainInput = document.getElementById('domain');
-            domainInput.value = prefix;
-            document.getElementById('masterPassword').focus();
-            showMessage(`Domain set to "${prefix}"-`);
-        }
-
-        // Handle URL parameters for quick access
-        function handleURLParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const domain = urlParams.get('domain');
-            const service = urlParams.get('service');
-
-            if (domain) {
-                document.getElementById('domain').value = decodeURIComponent(domain);
-                showMessage(`Pre-filled domain: ${domain}`);
-            } else if (service) {
-                fillQuickDomain(`${service}-`);
-            }
-        }
-
-        // PIN Management
-        function addPin(digit) {
-            if (currentPin.length < 6) {
-                currentPin += digit;
-                updatePinDisplay();
-
-                if (currentPin.length === 6) {
-                    if (isSettingPin) {
-                        storedPin = currentPin;
-                        saveData();
-                        isSettingPin = false;
-                        setupSection.style.display = 'none';
-                        showMessage('PIN set successfully!');
-                        setTimeout(() => authenticateUser(), 1000);
-                    } else {
-                        setTimeout(() => {
-                            if (currentPin === storedPin) {
-                                authenticateUser();
-                            } else {
-                                shakePinDisplay();
-                                showMessage('Incorrect PIN');
-                                clearPin();
-                            }
-                        }, 300);
-                    }
-                }
-            }
-        }
-
-        function deletePin() {
-            if (currentPin.length > 0) {
-                currentPin = currentPin.slice(0, -1);
-                updatePinDisplay();
-            }
-        }
-
-        function clearPin() {
-            currentPin = '';
-            updatePinDisplay();
-        }
-
-        function updatePinDisplay() {
-            for (let i = 1; i <= 6; i++) {
-                const dot = document.getElementById(`dot${i}`);
-                if (i <= currentPin.length) {
-                    dot.classList.add('filled');
-                } else {
-                    dot.classList.remove('filled');
-                }
-            }
-        }
-
-        function shakePinDisplay() {
-            const pinDisplay = document.querySelector('.pin-display');
-            pinDisplay.classList.add('shake');
-            setTimeout(() => pinDisplay.classList.remove('shake'), 500);
-        }
-
-        // Biometric Authentication
-        async function authenticateWithBiometric() {
-            try {
-                if (!window.PublicKeyCredential) {
-                    showMessage('Biometric authentication not supported on this device');
-                    return;
-                }
-
-                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-                if (!available) {
-                    showMessage('No biometric sensors detected on this device');
-                    return;
-                }
-
-                showMessage('Place your finger on the sensor or look at the camera...');
-                const challenge = new Uint8Array(32);
-                window.crypto.getRandomValues(challenge);
-
-                const publicKeyCredentialRequestOptions = {
-                    challenge: challenge,
-                    timeout: 30000,
-                    userVerification: 'required',
-                    allowCredentials: []
-                };
-
-                try {
-                    const credential = await navigator.credentials.get({
-                        publicKey: publicKeyCredentialRequestOptions
-                    });
-
-                    if (credential) {
-                        showMessage('Biometric authentication successful!');
-                        setTimeout(() => authenticateUser(), 1000);
-                    }
-                } catch (authError) {
-                    showMessage('Biometric authentication failed. Please try PIN.');
-                }
-            } catch (error) {
-                showMessage('Biometric authentication not available. Please use PIN.');
-            }
-        }
-
-        function authenticateUser() {
-            isAuthenticated = true;
-            securityScreen.style.display = 'none';
-            mainApp.style.display = 'block';
-            clearPin();
-            startAutoLockTimer();
-            loadDomainHistory();
-            updateStorageStatus();
-        }
-
-        function lockApp() {
-            isAuthenticated = false;
-            mainApp.style.display = 'none';
-            securityScreen.style.display = 'block';
-            clearTimeout(lockTimeout);
-            document.getElementById('masterPassword').value = '';
-            document.getElementById('domain').value = '';
-            document.getElementById('result').classList.remove('show');
-        }
-
-        // Auto-lock functionality
-        function startAutoLockTimer() {
-            clearTimeout(lockTimeout);
-            lockTimeout = setTimeout(() => {
-                if (isAuthenticated) lockApp();
-            }, 60000);
-        }
-
-        function resetTimeout() {
-            if (isAuthenticated) startAutoLockTimer();
-        }
-
-        // Domain normalization
-        function normalizeDomainName(domain) {
-            return domain
-                .toLowerCase()
-                .trim()
-                .replace(/\s+/g, '')
-                .replace(/[-_]+/g, '-')
-                .replace(/[^\w-]/g, '')
-                .replace(/^-+|-+$/g, '')
-                .replace(/-+/g, '-');
-        }
-
-        // Password Generation
-        async function generatePassword() {
-            const masterPassword = document.getElementById('masterPassword').value;
-            let domain = document.getElementById('domain').value.trim();
-            const length = parseInt(document.getElementById('length').value);
-
-            if (!masterPassword || !domain) {
-                showMessage('Please enter both master password and domain');
-                return;
-            }
-
-            const normalizedDomain = normalizeDomainName(domain);
-            domainPreferences[normalizedDomain] = length;
-            saveData();
-
-            try {
-                const encoder = new TextEncoder();
-                const salt = encoder.encode(normalizedDomain);
-                const keyMaterial = await window.crypto.subtle.importKey(
-                    'raw',
-                    encoder.encode(masterPassword),
-                    { name: 'PBKDF2' },
-                    false,
-                    ['deriveBits']
-                );
-
-                const derivedBits = await window.crypto.subtle.deriveBits(
-                    {
-                        name: 'PBKDF2',
-                        salt: salt,
-                        iterations: 100000,
-                        hash: 'SHA-256'
-                    },
-                    keyMaterial,
-                    256
-                );
-
-                const hashArray = new Uint8Array(derivedBits);
-                const base64 = btoa(String.fromCharCode(...hashArray));
-                const password = createStrongPassword(base64, length);
-
-                document.getElementById('passwordDisplay').textContent = password;
-                document.getElementById('result').classList.add('show');
-                document.getElementById('checkBreachBtn').style.display = 'block';
-                setTimeout(showSecurityTip, 1500);
-                saveDomainToHistory(domain, normalizedDomain);
-            } catch (error) {
-                showMessage('Error generating password');
-            }
-        }
-
-        function createStrongPassword(base64, length) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let password = '';
-
-            for (let i = 0; i < length; i++) {
-                const charIndex = base64.charCodeAt(i % base64.length) % chars.length;
-                password += chars[charIndex];
-            }
-
-            return ensurePasswordComplexity(password);
-        }
-
-        function ensurePasswordComplexity(password) {
-            const hasUpper = /[A-Z]/.test(password);
-            const hasLower = /[a-z]/.test(password);
-            const hasDigit = /[0-9]/.test(password);
-            const hasSpecial = /[!@#$%^&*]/.test(password);
-
-            if (hasUpper && hasLower && hasDigit && hasSpecial) {
-                return password;
-            }
-
-            let result = password.split('');
-            if (!hasUpper) result[0] = 'A';
-            if (!hasLower) result[1] = 'a';
-            if (!hasDigit) result[2] = '1';
-            if (!hasSpecial) result[3] = '!';
-
-            return result.join('');
-        }
-
-        // Copy to clipboard
-        async function copyPassword() {
-            const password = document.getElementById('passwordDisplay').textContent;
-
-            try {
-                await navigator.clipboard.writeText(password);
-                copyBtn.textContent = 'Copied! ✓';
-                copyBtn.classList.add('copied');
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy to Clipboard';
-                    copyBtn.classList.remove('copied');
-                }, 3000);
-            } catch (error) {
-                const textArea = document.createElement('textarea');
-                textArea.value = password;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-
-            }
-        }
-
-        // Domain History Management
-        function saveDomainToHistory(originalDomain, normalizedDomain) {
-            if (!originalDomain) return;
-
-            const properlyNormalized = normalizeDomainName(originalDomain);
-            domains = domains.filter(d => {
-                const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
-                return existingNormalized !== properlyNormalized;
-            });
-
-            domains.unshift({
-                display: originalDomain.trim(),
-                normalized: properlyNormalized,
-                timestamp: Date.now()
-            });
-
-            if (domains.length > 100) domains = domains.slice(0, 100);
-            saveData();
-            loadDomainHistory();
-            updateStorageStatus();
-        }
-
-        function loadDomainHistory() {
-            const domainList = document.getElementById('domainList');
-
-            if (domains.length === 0) {
-                domainList.innerHTML = '<div class="no-history">No domains saved yet</div>';
-                return;
-            }
-
-            const categories = {};
-            domains.forEach(domainObj => {
-                const displayName = typeof domainObj === 'object' ? domainObj.display : domainObj;
-                const normalizedName = typeof domainObj === 'object' ? domainObj.normalized : normalizeDomainName(domainObj);
-                const category = normalizedName.includes('-') ? normalizedName.split('-')[0] : 'Other';
-
-                if (!categories[category]) categories[category] = [];
-                categories[category].push({
-                    display: displayName,
-                    normalized: normalizedName
-                });
-            });
-
-            let html = '';
-            Object.keys(categories).forEach(category => {
-                const isCollapsed = collapsedCategories[category];
-                html += `<div class="domain-category">
-                    <div class="category-header" onclick="toggleCategoryVisibility('${category}')">
-                        ${category.toUpperCase()}
-                        <span class="caret">${isCollapsed ? '▶' : '▼'}</span>
-                    </div>
-                    <div class="category-domains" id="category-${category}" style="display: ${isCollapsed ? 'none' : 'block'};">`;
-
-                categories[category].forEach(domain => {
-                    const hasPreference = domainPreferences[domain.normalized];
-                    const preferenceText = hasPreference ? ` (${hasPreference}ch)` : '';
-
-                    html += `<div class="domain-item">
-                        <span class="domain-name" onclick="useDomain('${domain.display}')" title="Click to use this domain">
-                            ${domain.display}${preferenceText}
-                        </span>
-                        <div class="domain-actions">
-                            <button class="use-btn" onclick="useDomain('${domain.display}')">Use</button>
-                            <button class="delete-btn" onclick="deleteDomain('${domain.normalized}')">Del</button>
-                        </div>
-                    </div>`;
-                });
-                html += '</div></div>';
-            });
-
-            domainList.innerHTML = html;
-        }
-
-        function toggleCategoryVisibility(category) {
-            collapsedCategories[category] = !collapsedCategories[category];
-            const categoryDomains = document.getElementById(`category-${category}`);
-            const caret = document.querySelector(`#category-${category}`).previousElementSibling.querySelector('.caret');
-
-            if (collapsedCategories[category]) {
-                categoryDomains.style.display = 'none';
-                caret.textContent = '▶';
-            } else {
-                categoryDomains.style.display = 'block';
-                caret.textContent = '▼';
-            }
-        }
-
-        function useDomain(displayDomain) {
-            document.getElementById('domain').value = displayDomain;
-            const normalizedDomain = normalizeDomainName(displayDomain);
-
-            if (domainPreferences[normalizedDomain]) {
-                const lengthSelect = document.getElementById('length');
-                lengthSelect.value = domainPreferences[normalizedDomain];
-                lengthSelect.style.backgroundColor = '#e6fffa';
-                setTimeout(() => lengthSelect.style.backgroundColor = '', 1000);
-
-            }
-
-            historySection.style.display = 'none';
-            document.getElementById('masterPassword').focus();
-        }
-
-        function deleteDomain(normalizedDomain) {
-            domains = domains.filter(d => {
-                const existingNormalized = d.normalized || normalizeDomainName(d.display || d);
-                return existingNormalized !== normalizedDomain;
-            });
-
-            delete domainPreferences[normalizedDomain];
-            saveData();
-            loadDomainHistory();
-            updateStorageStatus();
-        }
-
-        function clearAllHistory() {
-            if (confirm('Clear all domain history? This action cannot be undone.')) {
-                domains = [];
-                domainPreferences = {};
-                saveData();
-                loadDomainHistory();
-                updateStorageStatus();
-                showMessage('Domain history and preferences cleared');
-            }
-        }
-
-        function toggleHistory() {
-            const isVisible = historySection.style.display !== 'none';
-            historySection.style.display = isVisible ? 'none' : 'block';
-
-            if (!isVisible) {
-                updateStorageStatus();
-                setTimeout(() => historySection.scrollIntoView({ behavior: 'smooth' }), 100);
-            }
-        }
-
-        // About Section
-        function toggleAbout() {
-            const isVisible = aboutSection.style.display !== 'none';
-            aboutSection.style.display = isVisible ? 'none' : 'block';
-
-            if (!isVisible) {
-                setTimeout(() => aboutSection.scrollIntoView({ behavior: 'smooth' }), 100);
-            }
-        }
-
-        // Add to Home Screen functionality
-        function showAddToHomeBanner() {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const isStandalone = window.navigator.standalone;
-            const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-
-            if (isIOS && isSafari && !isStandalone) {
-                const dismissed = localStorage.getItem('addToHomeDismissed');
-                if (!dismissed) addToHomeBanner.style.display = 'block';
-            }
-        }
-
-        function showInstallInstructions() {
-            iosInstructions.classList.add('show');
-            showInstructionsBtn.style.display = 'none';
-        }
-
-        function dismissBanner() {
-            addToHomeBanner.style.display = 'none';
-            if (storageAvailable) localStorage.setItem('addToHomeDismissed', 'true');
-        }
-
-        // Enhanced breach checking integration
-        function checkGeneratedPasswordBreach() {
-            const password = document.getElementById('passwordDisplay').textContent;
-            if (!password) {
-                showMessage('No password generated yet');
-                return;
-            }
-
-            // Open breach checker with the generated password
-            const breachWindow = window.open(' https://hhhpraise.github.io/password-breach-checker/', '_blank', 'width=600,height=800,scrollbars=yes,resizable=yes');
-
-            // Try to pass the password to the breach checker (if same origin)
-            setTimeout(() => {
-                try {
-                    if (breachWindow && !breachWindow.closed) {
-                        breachWindow.postMessage({
-                            type: 'CHECK_PASSWORD',
-                            password: password
-                        }, '*');
-                    }
-                } catch (e) {
-                    // Cross-origin restrictions, user will need to paste manually
-                }
-            }, 1000);
-
-            showSecurityTip();
-        }
-
-        function showSecurityTip() {
-            const tip = document.getElementById('securityTip');
-            tip.style.display = 'flex';
-            tip.classList.add('show');
-
-            // Hide after 10 seconds
-            setTimeout(() => {
-                tip.style.display = 'none';
-                tip.classList.remove('show');
-            }, 10000);
-        }
-
-        // Utility functions
-        function showMessage(message) {
-            const messageEl = document.createElement('div');
-            messageEl.textContent = message;
-            messageEl.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(0, 0, 0, 0.8);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 25px;
-                z-index: 9999;
-                font-size: 16px;
-                font-weight: 500;
-                max-width: 300px;
-                text-align: center;
-            `;
-
-            document.body.appendChild(messageEl);
-            setTimeout(() => document.body.removeChild(messageEl), 3000);
-        }
-
-        // Global functions for onclick handlers
-        window.useDomain = useDomain;
-        window.deleteDomain = deleteDomain;
-        window.fillQuickDomain = fillQuickDomain;
-        window.toggleCategoryVisibility = toggleCategoryVisibility;
-
-        // Initialize app when loaded
-        window.addEventListener('DOMContentLoaded', initApp);
-
-        // Handle storage events
-        window.addEventListener('storage', function(e) {
-            if (e.key === STORAGE_KEYS.DOMAINS) {
-                loadStoredData();
-                if (isAuthenticated) {
-                    loadDomainHistory();
-                    updateStorageStatus();
-                }
-            }
-        });
-
-        // Clean up on page unload
-        window.addEventListener('beforeunload', function() {
-            currentPin = '';
-            if (lockTimeout) clearTimeout(lockTimeout);
-        });
-
-        // Enhanced visibility change handling
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                if (isAuthenticated) {
-                    clearTimeout(lockTimeout);
-                    lockTimeout = setTimeout(() => {
-                        if (isAuthenticated && !document.hidden) lockApp();
-                    }, 120000);
-                }
-            } else {
-                if (isAuthenticated) startAutoLockTimer();
-            }
-        });
-    </script>
+  <!-- Scripts -->
+  <script src="app.js"></script>
 </body>
 </html>

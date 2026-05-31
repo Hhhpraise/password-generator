@@ -1,0 +1,13 @@
+/* SecurePass — Service Worker */
+const CACHE = 'securepass-v2';
+const FILES = ['/', '/index.html', '/styles.css', '/app.js'];
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)));
+});
+
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((r) => r || fetch(e.request))
+  );
+});
